@@ -8,6 +8,7 @@ import { Header } from './admin-main-layout/header/header';
 import { Sidebar } from './admin-main-layout/sidebar/sidebar';
 import { Dashboard } from './admin-main-features/dashboard/dashboard';
 import { ContactList } from './admin-main-features/contact-list/contact-list';
+import { Login } from './auth/login/login';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ContactList } from './admin-main-features/contact-list/contact-list';
       Header,
       Sidebar,
       Dashboard,
-      ContactList
+      ContactList,
+      Login
    ],
    imports: [
       CommonModule,
