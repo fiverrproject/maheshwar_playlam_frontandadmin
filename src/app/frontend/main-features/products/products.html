@@ -1,0 +1,62 @@
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+   <div class="container py-5">
+      <h1 class="display-3 text-white mb-3 animated slideInDown">Products</h1>
+      <nav aria-label="breadcrumb animated slideInDown">
+         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-white" [routerLink]="['/home']">Home</a></li>
+            <li class="breadcrumb-item text-white active" aria-current="page">Products</li>
+         </ol>
+      </nav>
+   </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Products Start -->
+<div class="container-xxl py-5">
+   <div class="container">
+      <div class="section-title text-center">
+         <h1 class="display-5 mb-5">Our Products</h1>
+      </div>
+      <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+         <div class="col-12 text-center">
+            <ul class="list-inline mb-5" id="portfolio-flters">
+               <li class="mx-2" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">
+                  All
+               </li>
+               <li class="mx-2" [class.active]="activeFilter === 'first'" (click)="setFilter('first')">
+                  General Designs
+               </li>
+               <li class="mx-2" [class.active]="activeFilter === 'second'" (click)="setFilter('second')">
+                  Custom Designs
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="row g-4 portfolio-container">
+         <ng-container *ngFor="let item of filteredProducts">
+            <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp" [class]="item.type" data-wow-delay="0.1s">
+               <div
+                  class="rounded overflow-hidden overflow-hidden h-100 d-flex flex-column border border-5 border-light">
+                  <div class="position-relative overflow-hidden portfolio-img">
+                     <img class="img-fluid w-100" [src]="item.image" [alt]="item.title">
+                     <div class="portfolio-overlay">
+                        <a class="btn btn-square btn-outline-light mx-1" [href]="item.image" data-lightbox="portfolio">
+                           <i class="fa fa-eye"></i>
+                        </a>
+                        <a class="btn btn-square btn-outline-light mx-1">
+                           <i class="fa fa-link"></i>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="d-flex flex-column flex-grow-1 p-4">
+                     <p class="text-primary fw-medium mb-2">{{ item.type }}</p>
+                     <h5 class="lh-base mb-0">{{ item.title }}</h5>
+                  </div>
+               </div>
+            </div>
+         </ng-container>
+      </div>
+   </div>
+</div>
+<!-- Products End -->

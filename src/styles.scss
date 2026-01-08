@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+// .portfolio-item img {
+//    transition: 0.5s;
+//    height: 410px;
+// }
+
+.portfolio-item {
+   display: flex;
+}
+
+.portfolio-item > .rounded {
+   width: 100%;
+}
+
+.portfolio-img {
+   height: 410px;
+}
+
+.portfolio-img img {
+   height: 100%;
+   object-fit: cover;
+}
+
+.service-item {
+   height: 100%;
+}
+
+.service-img {
+   height: 220px;
+}
+
+.service-img img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
