@@ -1,1 +1,56 @@
-<p>dashboard works!</p>
+<main class="flex-fill p-4 bg-light content-area flex-fill">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card shadow-sm pointer" routerLink="/tornadoAdmin/features/category">
+                <div class="card-body">
+                    <h6 class="text-muted">Categories</h6>
+                    <h3 class="fw-bold">{{dashboard.catCount}}</h3>
+                    <!-- <span class="badge bg-success">+12%</span> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card shadow-sm pointer" routerLink="/tornadoAdmin/features/contact-list">
+                <div class="card-body">
+                    <h6 class="text-muted">Contact Us</h6>
+                    <h3 class="fw-bold">{{dashboard.consonantal}}</h3>
+                    <!-- <span class="badge bg-primary">Today</span> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card shadow-sm pointer" routerLink="/tornadoAdmin/features/contact-list">
+                <div class="card-body">
+                    <h6 class="text-muted">Contact Us</h6>
+                    <h3 class="fw-bold">{{dashboard.site_config}}</h3>
+                    <!-- <span class="badge bg-primary">Today</span> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card shadow-sm pointer" routerLink="/tornadoAdmin/features/inquiry">
+                <div class="card-body">
+                    <h6 class="text-muted">Inquiry</h6>
+                    <h3 class="fw-bold">{{dashboard.inqCount}}</h3>
+                    <!-- <span class="badge bg-warning">Monthly</span> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card shadow-sm pointer" routerLink="/tornadoAdmin/features/product">
+                <div class="card-body">
+                    <h6 class="text-muted">Products</h6>
+                    <h3 class="fw-bold">{{dashboard.proCount}}</h3>
+                    <!-- <span class="badge bg-danger">Action</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+  

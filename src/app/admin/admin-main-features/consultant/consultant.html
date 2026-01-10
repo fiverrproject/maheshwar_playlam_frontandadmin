@@ -1,0 +1,239 @@
+<!-- <div class="container-fluid ">
+    <div class="row justify-content-center">
+        <div class=" col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0 text-primary fw-semibold">
+                        Consultant
+                    </h4>
+
+                    <button class="btn btn-primary btn-sm" (click)="opnModal('consultant_Modal')">
+                        <i class="bi bi-plus-circle me-1"></i>
+                        Add
+                    </button>
+                </div>
+
+
+
+                <div class="card-body p-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>name</th>
+                                    <th>profile</th>
+                                    <th>email</th>
+                                    <th>designation</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody *ngIf="all_data && all_data.length">
+                                <tr *ngFor="let item of all_data; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ item.name || '-' | uppercase }}</td>
+                                    <td>
+                                        <img *ngIf="item.profile; else noImage" [src]="image_folder + item.profile"
+                                            alt="Profile" style="height: 50px; width: 50px;">
+                                        <ng-template #noImage>
+                                            <img src="/img/admin-img/not-found.png" alt="Profile"
+                                                style="height: 50px; width: 50px;">
+                                        </ng-template>
+                                    </td>
+                                    <td>{{ item.email || '-' | uppercase }}</td>
+                                    <td>{{ item.designation || '-' | uppercase }}</td>
+
+                                    <td>
+                                        {{ item.created_at ? (item.created_at | date:'dd MMM yyyy') : '-' }}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" (click)="update(item)">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-outline-danger" (click)="delete(item)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                            <tbody *ngIf="!all_data?.length">
+                                <tr>
+                                    <td colspan="11" class="text-muted py-4">
+                                        No inquiries found
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="container-fluid py-4">
+
+    <div class=" mb-3 d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1 text-dark">Consultant</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item "><a routerLink="/lamcartAdmin/features/consultant">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Consultant</li>
+                </ol>
+            </nav>
+        </div>
+        <button class="btn btn-dark" (click)="opnModal('consultant_Modal')">
+            <i class="bi bi-plus-lg me-1"></i> Add Product
+        </button>
+    </div>
+
+
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="text-center py-5" *ngIf="is_loader">
+                <div class="spinner-border text-dark" role="status"></div>
+            </div>
+            <div class="table-responsive"> <!-- Added table-responsive class -->
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>S.No</th>
+                            <th>name</th>
+                            <th>profile</th>
+                            <th>email</th>
+                            <th>designation</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="all_data && all_data.length">
+
+
+                        <tr *ngFor="let item of all_data | paginate: pagingConfig; index as i">
+                            <td>{{ ((pagingConfig.currentPage - 1) * pagingConfig.itemsPerPage) + i + 1 }}</td>
+                            <td>{{ item.name || '-' | uppercase }}</td>
+                            <td>
+                                <img *ngIf="item.profile; else noImage" [src]="image_folder + item.profile"
+                                    alt="Profile" style="height: 50px; width: 50px;">
+                                <ng-template #noImage>
+                                    <img src="/img/admin-img/not-found.png" alt="Profile"
+                                        style="height: 50px; width: 50px;">
+                                </ng-template>
+                            </td>
+                            <td>{{ item.email || '-' | uppercase }}</td>
+                            <td>{{ item.designation || '-' | uppercase }}</td>
+
+                            <td>
+                                {{ item.created_at ? (item.created_at | date:'dd MMM yyyy') : '-' }}
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary" (click)="update(item)">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                                <button class="ms-2  btn btn-sm btn-outline-danger" (click)="delete(item)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                    <tbody *ngIf="!all_data?.length">
+                        <tr>
+                            <td colspan="11" class="text-muted py-4">
+                                No inquiries found
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12 text-end">
+                    <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model Form -->
+
+<div class="modal fade" id="consultant_Modal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <form [formGroup]="consultant_Form" (ngSubmit)="onSubmit()">
+
+                <!-- HEADER -->
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary">
+                        {{ consultant_ID ? 'Edit Consultant' : 'Add Consultant' }}
+                    </h5>
+                    <button type="button" class="btn-close" (click)="dismissModal('consultant_Modal')"></button>
+                </div>
+
+                <!-- BODY -->
+                <div class="modal-body">
+                    <div class="row g-3">
+
+                        <!-- Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" formControlName="name" placeholder="Enter name">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                        </div>
+
+                        <!-- Designation -->
+                        <div class="col-md-6">
+                            <label class="form-label">Designation</label>
+                            <input type="text" class="form-control" formControlName="designation"
+                                placeholder="Enter designation">
+                        </div>
+
+                        <!-- Profile Image -->
+                        <div class="col-md-6">
+                            <label class="form-label">Profile Image</label>
+                            <input type="file" class="form-control" (change)="onFileChange($event)">
+
+                            <!-- Image preview -->
+                            <div class="mt-2" *ngIf="imagePreview">
+                                <img [src]="imagePreview" alt="Preview" class="img-thumbnail"
+                                    style="height: 120px; width: auto;">
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal('consultant_Modal')">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary" [disabled]="consultant_Form.invalid">
+                        {{ consultant_ID ? 'Update' : 'Save' }}
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

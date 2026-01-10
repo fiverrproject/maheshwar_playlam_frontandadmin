@@ -1,0 +1,108 @@
+.logo {
+   line-height: 1;
+}
+@media (min-width: 1200px) {
+   .logo {
+      width: 235px;
+   }
+}
+
+.header {
+   transition: all 0.5s;
+   z-index: 997;
+   height: 60px;
+   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+   background-color: #fff;
+   padding-left: 20px;
+}
+.header .toggle-sidebar-btn {
+   font-size: 32px;
+   padding-left: 10px;
+   cursor: pointer;
+   color: #012970;
+}
+
+/*--------------------------------------------------------------
+ # Header Nav
+ --------------------------------------------------------------*/
+.dropdown-item {
+   cursor: pointer;
+}
+.dropdown-menu .divider {
+   border-bottom: 1px solid #a5c5fe;
+}
+.header-nav ul {
+   list-style: none;
+}
+.header-nav > ul {
+   margin: 0;
+   padding: 0;
+}
+.header-nav .nav-icon {
+   font-size: 20px;
+   color: #012970;
+}
+.header-nav .nav-profile {
+   color: #012970;
+}
+.header-nav .nav-profile img {
+   max-height: 45px;
+   width: 45px;
+   min-height: 45px;
+   object-fit: cover;
+}
+.header-nav .nav-profile span {
+   font-size: 14px;
+   font-weight: 600;
+}
+.header-nav .badge-number {
+   inset: 0px 0px auto auto;
+   font-weight: normal;
+   font-size: 11px;
+   padding: 3px 5px;
+   position: absolute;
+}
+
+.header-nav .profile {
+   min-width: 240px;
+   padding-bottom: 0;
+}
+
+.header-nav .profile .dropdown-header h6 {
+   font-size: 18px;
+   margin-bottom: 0;
+   font-weight: 600;
+   color: #444444;
+}
+.header-nav .profile .dropdown-header span {
+   font-size: 14px;
+}
+.header-nav .profile .dropdown-item {
+   font-size: 15px;
+   padding: 10px 15px;
+   transition: 0.3s;
+}
+.header-nav .profile .dropdown-item i {
+   margin-right: 10px;
+   font-size: 15px;
+   line-height: 0;
+}
+.header-nav .profile .dropdown-item:hover {
+   background-color: #f6f9ff;
+   color: #1e2125;
+}
+
+.header-nav > ul > li {
+   display: inline-block;
+   list-style: none;
+   position: relative;
+   margin-right: 10px;
+}
+.header-nav ul > li.mini-cart > a {
+   position: relative;
+   width: auto;
+}
+
+.header-nav .profile .dropdown-item:hover {
+   color: #1fbeec !important;
+}

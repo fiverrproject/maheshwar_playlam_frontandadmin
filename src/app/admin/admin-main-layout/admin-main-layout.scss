@@ -1,0 +1,100 @@
+// #main {
+//    margin-top: 60px;
+//    padding: 20px 30px;
+//    transition: all 0.3s;
+// }
+
+// // Heaader Logo End
+
+// @media (min-width: 1100px) {
+//    #main {
+//       margin-left: 300px;
+//    }
+
+//    .toggle-sidebar #main {
+//       margin-left: 0 !important;
+//    }
+//    .toggle-sidebar .sidebar {
+//       left: -300px !important;
+//    }
+//    .toggle-sidebar #main .footer-section {
+//       left: 0;
+//    }
+// }
+
+// @media (min-width: 100px) {
+//    .toggle-sidebar #main {
+//       margin-left: 0;
+//    }
+//    .toggle-sidebar .sidebar {
+//       left: -300px !important;
+//    }
+//    .toggle-sidebar #main .footer-section {
+//       left: 0;
+//    }
+// }
+
+// @media (max-width: 1199px) {
+//    .toggle-sidebar .sidebar {
+//       left: 0;
+//    }
+//    .toggle-sidebar #main .footer-section {
+//       left: 0;
+//    }
+// }
+
+:root {
+--bs-primary: #000000;
+--bs-secondary: #6c757d;
+--bs-body-bg: #f8f9fa;
+--bs-body-color: #212529;
+}
+
+
+body {
+background-color: #f8f9fa;
+}
+
+
+/* Header */
+.navbar {
+background-color: #000 !important;
+}
+
+
+/* Sidebar */
+aside {
+background-color: #ffffff;
+transition: all 0.3s ease;
+}
+
+
+.nav-link {
+color: #212529;
+border-radius: 6px;
+}
+
+
+.nav-link:hover {
+background-color: #f1f1f1;
+}
+
+
+.nav-link.active {
+background-color: #000;
+color: #fff !important;
+}
+
+
+/* Cards */
+.card {
+border: 1px solid #e5e5e5;
+border-radius: 12px;
+}
+
+
+/* Footer */
+footer {
+background-color: #fff;
+color: #6c757d;
+}

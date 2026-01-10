@@ -1,1 +1,107 @@
-<p>contact-list works!</p>
+<!-- <div class="container-fluid mt-5">
+  <div class="row justify-content-center mt-5">
+
+    <h4 class="text-center text-primary mb-0">Inquiry</h4>
+
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="text-primary">S.No</th>
+              <th class="text-primary">Name</th>
+              <th class="text-primary">Email</th>
+              <th class="text-primary">Mobile</th>
+              <th class="text-primary">Subject</th>
+              <th class="text-primary">Message</th>
+              <th class="text-primary">Created At</th>
+              <th class="text-primary">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let item of inquiry_data;let i = index;">
+              <td>{{ i + 1}}</td>
+              <td>{{ item.name ? (item.name | uppercase) : '-' }}</td>
+              <td>{{ item.email ? (item.email | uppercase) : '-' }}</td>
+              <td>{{ item.mobile ? (item.mobile | uppercase) : '-'}}</td>
+              <td>{{ item.subject ? (item.subject | uppercase) : '-' }}</td>
+              <td>{{ item.message ? (item.message | uppercase) : '-' }}</td>
+              <td>{{ item.created_at ? (item.created_at | date: 'd MMM yyyy') : '-' }}</td>
+              <td> <button class="btn btn-sm btn-outline-danger" (click)="delete(item.id)">
+                  <i class="bi bi-trash"></i>
+                </button></td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<!-- Page Header -->
+<div class="container-fluid py-4">
+
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <div class="mb-3">
+      <h4 class="fw-bold mb-1 text-dark">Inquiry</h4>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item "><a routerLink="/lamcartAdmin/features/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active">Inquiry</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <div class="text-center py-5" *ngIf="is_loader">
+        <div class="spinner-border text-dark" role="status"></div>
+      </div>
+      <div class="table-responsive"> <!-- Added table-responsive class -->
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Message</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="inquiry_data && inquiry_data.length">
+            <tr *ngFor="let item of inquiry_data | paginate: pagingConfig; let i = index">
+              <td>{{ (pagingConfig.currentPage - 1) * pagingConfig.itemsPerPage + i + 1 }}</td>
+
+              <td>{{ item.name ? (item.name | uppercase) : '-' }}</td>
+              <td>{{ item.email ? (item.email | uppercase) : '-' }}</td>
+              <td>{{ item.subject ? (item.subject | uppercase) : '-' }}</td>
+              <td>{{ item.message ? (item.message | uppercase) : '-' }}</td>
+              <td>{{ item.created_at ? (item.created_at | date: 'd MMM yyyy') : '-' }}</td>
+              <td> <button class="btn btn-sm btn-outline-danger" (click)="delete(item.id)">
+                  <i class="bi bi-trash"></i>
+                </button></td>
+          </tbody>
+          <tbody *ngIf="!inquiry_data?.length">
+            <tr>
+              <td colspan="11" class="text-muted py-4">
+                No inquiries found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-12 text-end">
+          <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Prev" nextLabel="Next">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

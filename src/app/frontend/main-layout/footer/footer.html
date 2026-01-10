@@ -5,25 +5,25 @@
          <div class="col-lg-3 col-md-6">
             <h4 class="text-light mb-4">Address</h4>
             <p class="mb-2">
-               <i class="fa fa-map-marker-alt me-3"></i>Rajkot
+               <i class="fa fa-map-marker-alt me-3"></i>{{all_data?.address}}
             </p>
             <p class="mb-2">
-               <i class="fa fa-phone-alt me-3"></i>+012 345 67890
+               <i class="fa fa-phone-alt me-3"></i>+{{all_data?.mobile_1}}
             </p>
             <p class="mb-2">
-               <i class="fa fa-envelope me-3"></i>maheshwarplaylam@gmail.com
+               <i class="fa fa-envelope me-3"></i>{{all_data?.email}}
             </p>
             <div class="d-flex pt-2">
-               <a class="btn btn-outline-light btn-social">
+               <a [href]="all_data?.social_1" class="btn btn-outline-light btn-social">
                   <i class="fab fa-twitter"></i>
                </a>
-               <a class="btn btn-outline-light btn-social">
+               <a [href]="all_data?.social_2"  class="btn btn-outline-light btn-social">
                   <i class="fab fa-facebook-f"></i>
                </a>
-               <a class="btn btn-outline-light btn-social">
+               <a [href]="all_data?.social_3"  class="btn btn-outline-light btn-social">
                   <i class="fab fa-youtube"></i>
                </a>
-               <a class="btn btn-outline-light btn-social">
+               <a [href]="all_data?.social_4"  class="btn btn-outline-light btn-social">
                   <i class="fab fa-linkedin-in"></i>
                </a>
             </div>

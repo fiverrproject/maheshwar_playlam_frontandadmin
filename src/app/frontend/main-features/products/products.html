@@ -18,7 +18,7 @@
       <div class="section-title text-center">
          <h1 class="display-5 mb-5">Our Products</h1>
       </div>
-      <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+      <!-- <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
          <div class="col-12 text-center">
             <ul class="list-inline mb-5" id="portfolio-flters">
                <li class="mx-2" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">
@@ -56,7 +56,53 @@
                </div>
             </div>
          </ng-container>
+      </div> -->
+
+
+      <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+         <div class="col-12 text-center">
+            <ul class="list-inline mb-5" id="portfolio-flters">
+               <li class="mx-2" [class.active]="activeCategoryId === 'all'" (click)="setFilter('all')">
+                  All
+               </li>
+               <li class="mx-2" *ngFor="let cat of categories" [class.active]="activeCategoryId === cat.id"
+                  (click)="setFilter(cat.id)">
+                  {{ cat.name }}
+               </li>
+            </ul>
+         </div>
       </div>
+
+      <div class="row g-4 portfolio-container">
+         <ng-container *ngFor="let item of filteredProducts">
+            <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp" [class]="'category-' + item.category_id"
+               data-wow-delay="0.1s">
+               <div class="rounded overflow-hidden h-100 d-flex flex-column border border-5 border-light">
+                  <div class="position-relative overflow-hidden portfolio-img">
+                     <img class="img-fluid w-100" 
+                     [src]="api_s.imageBaseUrl + 'products_image/' + item.thumbnail"
+                     [alt]="item.name">
+                     <div class="portfolio-overlay">
+                        <a class="btn btn-square btn-outline-light mx-1" [href]="api_s.imageBaseUrl + 'products_image/' + item.thumbnail"
+                           data-lightbox="portfolio">
+                           <i class="fa fa-eye"></i>
+                        </a>
+                        <a class="btn btn-square btn-outline-light mx-1">
+                           <i class="fa fa-link"></i>
+                        </a>
+                     </div>
+                  </div>
+                  <div class="d-flex flex-column flex-grow-1 p-4">
+                     <p class="text-primary fw-medium mb-2">{{ item.category_name }}</p>
+                     <h5 class="lh-base mb-0">{{ item.name }}</h5>
+                  </div>
+               </div>
+            </div>
+         </ng-container>
+      </div>
+
+
+
    </div>
 </div>
 <!-- Products End -->

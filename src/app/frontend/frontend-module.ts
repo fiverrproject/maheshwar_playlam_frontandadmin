@@ -11,6 +11,7 @@ import { Contact } from './main-features/contact/contact';
 import { Service } from './main-features/service/service';
 import { Products } from './main-features/products/products';
 import { CounterUp } from './front-core/directives/counter-up';
+import { ShereModule } from '../core/shere/shere-module';
 
 @NgModule({
    declarations: [
@@ -27,6 +28,7 @@ import { CounterUp } from './front-core/directives/counter-up';
    imports: [
       CommonModule,
       FrontendRoutingModule,
+      ShereModule
    ]
 })
 export class FrontendModule { }

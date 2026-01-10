@@ -4,7 +4,7 @@
       <div class="col-lg-7 px-5 text-start">
          <div class="h-100 d-inline-flex align-items-center py-3 me-4">
             <small class="fa fa-map-marker-alt text-primary me-2"></small>
-            <small>Rajkot</small>
+            <small>{{all_data?.address}}</small>
          </div>
          <div class="h-100 d-inline-flex align-items-center py-3">
             <small class="far fa-clock text-primary me-2"></small>
@@ -14,13 +14,13 @@
       <div class="col-lg-5 px-5 text-end">
          <div class="h-100 d-inline-flex align-items-center py-3 me-4">
             <small class="fa fa-phone-alt text-primary me-2"></small>
-            <small>+012 345 6789</small>
+            <small>+{{all_data?.mobile_2}}</small>
          </div>
          <div class="h-100 d-inline-flex align-items-center">
-            <a class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-linkedin-in"></i></a>
-            <a class="btn btn-sm-square bg-white text-primary me-0"><i class="fab fa-instagram"></i></a>
+            <a [href]="all_data?.social_1" class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-facebook-f"></i></a>
+            <a [href]="all_data?.social_2" class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-twitter"></i></a>
+            <a [href]="all_data?.social_3" class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-linkedin-in"></i></a>
+            <a [href]="all_data?.social_4" class="btn btn-sm-square bg-white text-primary me-0"><i class="fab fa-instagram"></i></a>
          </div>
       </div>
    </div>

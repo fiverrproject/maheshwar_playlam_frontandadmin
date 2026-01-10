@@ -1,0 +1,176 @@
+<div class="container-fluid  py-4 ">
+
+  <!-- Card -->
+
+  <!-- Card Header -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <div class="mb-3">
+      <h4 class="fw-bold mb-1 text-dark">Site Config</h4>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item "><a routerLink="/lamcartAdmin/features/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active">Site Config</li>
+        </ol>
+      </nav>
+    </div>
+
+
+    <button class="btn btn-dark" (click)="opnModal('site_configModal')">
+      <i class="bi bi-plus-lg me-1"></i> Add Site Config
+    </button>
+
+  </div>
+
+  <!-- Card Body -->
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body ">
+      <div class="text-center py-5" *ngIf="is_loader">
+        <div class="spinner-border text-dark" role="status"></div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle  ">
+          <thead class="table-light">
+            <tr>
+              <th>S.No</th>
+              <th>mobile_1</th>
+              <th>mobile_2</th>
+              <th>Social_1</th>
+              <th>Social_2</th>
+              <th>Social_3</th>
+              <th>Social_4</th>
+              <th>email</th>
+              <th>address</th>
+              <th>Map Url</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="site_config && site_config.length">
+            <tr *ngFor="let item of site_config; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.mobile_1 || '-' }}</td>
+              <td>{{ item.mobile_2 || '-' }}</td>
+              <td>{{ item.social_1 || '-' }}</td>
+              <td>{{ item.social_2 || '-' }}</td>
+              <td>{{ item.social_3 || '-' }}</td>
+              <td>{{ item.social_4 || '-' }}</td>
+              <td>{{ item.email || '-' | uppercase }}</td>
+              <td>{{ item.address || '-' | uppercase }}</td>
+
+              <td>{{item.map_url }}</td>
+              <td>
+                {{ item.created_at ? (item.created_at | date:'dd MMM yyyy') : '-' }}
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary" (click)="update(item)">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+
+              </td>
+
+            </tr>
+          </tbody>
+
+          <tbody *ngIf="!site_config?.length">
+            <tr>
+              <td colspan="11" class="text-muted py-4">
+                No inquiries found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+
+
+</div>
+
+
+<div class="modal fade" id="site_configModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <form [formGroup]="site_configForm" (ngSubmit)="onSubmit()">
+
+        <div class="modal-header">
+          <h5 *ngIf="!site_config_ID" class="modal-title text-primary">Add Site Config</h5>
+          <h5 *ngIf="site_config_ID" class="modal-title text-primary">Edit Site Config</h5>
+          <button type="button" class="btn-close" (click)="dismissModal('site_configModal')">
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="row g-3">
+
+            <!-- Mobile -->
+            <div class="col-md-6">
+              <label class="form-label">Mobile 1</label>
+              <input type="text" class="form-control" formControlName="mobile_1">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Mobile 2</label>
+              <input type="text" class="form-control" formControlName="mobile_2">
+            </div>
+
+            <!-- Social -->
+            <div class="col-md-6">
+              <label class="form-label">Social 1</label>
+              <input type="text" class="form-control" formControlName="social_1">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Social 2</label>
+              <input type="text" class="form-control" formControlName="social_2">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Social 3</label>
+              <input type="text" class="form-control" formControlName="social_3">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Social 4</label>
+              <input type="text" class="form-control" formControlName="social_4">
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-12">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" formControlName="email">
+            </div>
+
+            <!-- Address -->
+            <div class="col-md-12">
+              <label class="form-label">Address</label>
+              <textarea rows="3" class="form-control" formControlName="address"></textarea>
+            </div>
+
+            <!-- Map URL -->
+            <div class="col-md-12">
+              <label class="form-label">Map URL</label>
+              <input type="text" class="form-control" formControlName="map_url">
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="dismissModal('site_configModal')">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="site_configForm.invalid">
+            Submit
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

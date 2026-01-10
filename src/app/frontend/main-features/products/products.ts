@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Api } from '../../../core/services/api';
 
 @Component({
    selector: 'app-products',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
    styleUrl: './products.scss',
 })
 export class Products {
+   all_data: any;
    products: any[] = [
       {
          category: 'first',
@@ -45,16 +47,66 @@ export class Products {
          type: 'Custom Designs'
       }
    ];
+
    activeFilter: string = 'all';
 
-   setFilter(filter: string) {
-      this.activeFilter = filter;
+   // setFilter(filter: string) {
+   //    this.activeFilter = filter;
+   // }
+
+   // get filteredProducts() {
+   //    if (this.activeFilter === 'all') {
+   //       return this.products;
+   //    }
+   //    return this.products.filter(p => p.category === this.activeFilter);
+   // }
+
+
+
+
+
+   constructor(public api_s: Api,
+      private cf: ChangeDetectorRef) {
+      this.get_data();
    }
 
-   get filteredProducts() {
-      if (this.activeFilter === 'all') {
-         return this.products;
-      }
-      return this.products.filter(p => p.category === this.activeFilter);
+   filteredProducts: any[] = [];
+   categories: any[] = [];
+   activeCategoryId: any = 'all';
+
+   ngOnInit() {
+      // Replace with your actual API data
+
+
+
    }
+
+   getCategories(products: any[]) {
+      const map: any = {};
+      products.forEach(p => map[p.category_id] = p.category_name);
+      return Object.keys(map).map(id => ({ id: +id, name: map[id] }));
+   }
+
+   setFilter(categoryId: any) {
+      this.activeCategoryId = categoryId;
+      if (categoryId === 'all') {
+         this.filteredProducts = this.all_data;
+      } else {
+         this.filteredProducts = this.all_data.filter((p: any) => p.category_id === categoryId);
+      }
+   }
+
+   get_data() {
+      this.api_s.postApi('product-get', '').then((resp: any) => {
+         this.all_data = resp.data;
+         this.categories = this.getCategories(this.all_data);
+         // console.log(":::::categories",this.categories);
+         this.filteredProducts = this.all_data;
+         this.cf.detectChanges();
+         // console.log(":::::", this.all_data);
+      }, (err: any) => {
+         // this.isLoading = false;
+      });
+   }
+
 }
