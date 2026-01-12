@@ -65,7 +65,7 @@
                <li class="mx-2" [class.active]="activeCategoryId === 'all'" (click)="setFilter('all')">
                   All
                </li>
-               <li class="mx-2" *ngFor="let cat of categories" [class.active]="activeCategoryId === cat.id"
+               <li class="mx-2" *ngFor="let cat of categories_all" [class.active]="activeCategoryId === cat.id"
                   (click)="setFilter(cat.id)">
                   {{ cat.name }}
                </li>
@@ -74,17 +74,19 @@
       </div>
 
       <div class="row g-4 portfolio-container">
+         <div *ngIf="filteredProducts.length === 0" class="no-products">
+            {{ noProductsMessage || 'No products available.' }}
+         </div>
          <ng-container *ngFor="let item of filteredProducts">
             <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp" [class]="'category-' + item.category_id"
                data-wow-delay="0.1s">
                <div class="rounded overflow-hidden h-100 d-flex flex-column border border-5 border-light">
                   <div class="position-relative overflow-hidden portfolio-img">
-                     <img class="img-fluid w-100" 
-                     [src]="api_s.imageBaseUrl + 'products_image/' + item.thumbnail"
-                     [alt]="item.name">
+                     <img class="img-fluid w-100" [src]="api_s.imageBaseUrl + 'products_image/' + item.thumbnail"
+                        [alt]="item.name">
                      <div class="portfolio-overlay">
-                        <a class="btn btn-square btn-outline-light mx-1" [href]="api_s.imageBaseUrl + 'products_image/' + item.thumbnail"
-                           data-lightbox="portfolio">
+                        <a class="btn btn-square btn-outline-light mx-1"
+                           [href]="api_s.imageBaseUrl + 'products_image/' + item.thumbnail" data-lightbox="portfolio">
                            <i class="fa fa-eye"></i>
                         </a>
                         <a class="btn btn-square btn-outline-light mx-1">

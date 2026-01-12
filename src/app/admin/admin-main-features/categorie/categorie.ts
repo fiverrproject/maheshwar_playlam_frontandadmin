@@ -140,9 +140,9 @@ export class Categorie {
         this.dismissModal('categorie_Modal');
         this.categorie_Form.reset();
         this.categorie_ID = null;
-        // this.globle_s.showToastr('Success', 'Form SuccessFully Site Config');
+        this.globle_s.showToastr('Success', resp.message);
       }, (err: any) => {
-        // this.globle_s.showToastr('Error', 'Not Form Submit');
+        this.globle_s.showToastr('Error', 'Not Form Submit');
       });
     }
   }

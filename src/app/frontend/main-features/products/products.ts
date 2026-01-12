@@ -9,44 +9,44 @@ import { Api } from '../../../core/services/api';
 })
 export class Products {
    all_data: any;
-   products: any[] = [
-      {
-         category: 'first',
-         image: 'img/front-img/portfolio-1.jpg',
-         title: 'Light Oak',
-         type: 'General Designs'
-      },
-      {
-         category: 'second',
-         image: 'img/front-img/portfolio-2.jpg',
-         title: 'Dark Walnut',
-         type: 'Custom Designs'
-      },
-      {
-         category: 'first',
-         image: 'img/front-img/portfolio-3.jpg',
-         title: 'Grey Marble',
-         type: 'General Designs'
-      },
-      {
-         category: 'second',
-         image: 'img/front-img/portfolio-4.jpg',
-         title: 'Natural Teak',
-         type: 'Custom Designs'
-      },
-      {
-         category: 'first',
-         image: 'img/front-img/portfolio-5.jpg',
-         title: 'Olive Green',
-         type: 'General Designs'
-      },
-      {
-         category: 'second',
-         image: 'img/front-img/portfolio-6.jpg',
-         title: 'Soft Beige',
-         type: 'Custom Designs'
-      }
-   ];
+   // products: any[] = [
+   //    {
+   //       category: 'first',
+   //       image: 'img/front-img/portfolio-1.jpg',
+   //       title: 'Light Oak',
+   //       type: 'General Designs'
+   //    },
+   //    {
+   //       category: 'second',
+   //       image: 'img/front-img/portfolio-2.jpg',
+   //       title: 'Dark Walnut',
+   //       type: 'Custom Designs'
+   //    },
+   //    {
+   //       category: 'first',
+   //       image: 'img/front-img/portfolio-3.jpg',
+   //       title: 'Grey Marble',
+   //       type: 'General Designs'
+   //    },
+   //    {
+   //       category: 'second',
+   //       image: 'img/front-img/portfolio-4.jpg',
+   //       title: 'Natural Teak',
+   //       type: 'Custom Designs'
+   //    },
+   //    {
+   //       category: 'first',
+   //       image: 'img/front-img/portfolio-5.jpg',
+   //       title: 'Olive Green',
+   //       type: 'General Designs'
+   //    },
+   //    {
+   //       category: 'second',
+   //       image: 'img/front-img/portfolio-6.jpg',
+   //       title: 'Soft Beige',
+   //       type: 'Custom Designs'
+   //    }
+   // ];
 
    activeFilter: string = 'all';
 
@@ -87,16 +87,32 @@ export class Products {
       return Object.keys(map).map(id => ({ id: +id, name: map[id] }));
    }
 
-   setFilter(categoryId: any) {
+
+    noProductsMessage: string = '';
+   setFilter(categoryId: number | 'all'): void {
       this.activeCategoryId = categoryId;
+
+      // Filter products based on selected category
       if (categoryId === 'all') {
          this.filteredProducts = this.all_data;
+         this.noProductsMessage = '';
       } else {
-         this.filteredProducts = this.all_data.filter((p: any) => p.category_id === categoryId);
+         this.filteredProducts = this.all_data.filter((product: any) => product.category_id === categoryId);
+         this.noProductsMessage = this.filteredProducts.length === 0 ? 'No products found for this category.' : '';
       }
    }
 
+   categories_all: any;
    get_data() {
+      // product-get
+      this.api_s.postApi('categories-get', '').then((resp: any) => {
+         this.categories_all = resp.data;
+         console.log(":::all c", this.categories_all);
+         this.cf.detectChanges();
+
+      }, (err: any) => {
+
+      });
       this.api_s.postApi('product-get', '').then((resp: any) => {
          this.all_data = resp.data;
          this.categories = this.getCategories(this.all_data);
