@@ -17,6 +17,7 @@ import { Product } from './admin-main-features/product/product';
 import { share } from 'rxjs';
 import { ShereModule } from '../core/shere/shere-module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChangePassd } from './admin-main-features/change-passd/change-passd';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
       SiteConfig,
       Consultant,
       Categorie,
-      Product
+      Product,
+      ChangePassd
    ],
    imports: [
       CommonModule,

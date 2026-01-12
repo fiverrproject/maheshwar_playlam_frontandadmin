@@ -98,3 +98,30 @@ footer {
 background-color: #fff;
 color: #6c757d;
 }
+
+
+.layout-wrapper {
+  display: flex;
+  min-height: calc(100vh - 60px); /* header height */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+app-sidebar {
+  width: 260px;        /* fixed sidebar width */
+  flex-shrink: 0;      /* prevents shrinking */
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;        /* 🔥 fixes width breaking issue */
+  background-color: #f8f9fa;
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-x: auto;
+}

@@ -19,13 +19,16 @@ export class Categorie {
     currentPage: 1,
     totalItems: 0
   };
-    is_loader: boolean = true;
+  is_loader: boolean = true;
+
+  categorieLogs: any = {};
+
 
   constructor(public api_s: Api,
     private cf: ChangeDetectorRef,
     public globle_s: Globle,
     private fb: FormBuilder,) {
-    this.get_data();
+    this.get_data({ page: 1 });
 
     this.categorie_Form = this.fb.group({
       id: '',
@@ -34,14 +37,17 @@ export class Categorie {
     });
   }
 
-  get_data(page: number = 1) {
-     this.is_loader = true;
+  get_data(body: any) {
+    this.is_loader = true;
+    const page = body.page || 1;
     this.pagingConfig.currentPage = page;
 
-    this.api_s.postApi('categories-get', '').then((resp: any) => {
+    this.api_s.postApi(`categories-get?page=${page}`, '').then((resp: any) => {
+      this.categorieLogs[page] = resp.data;
       this.all_data = resp.data;
-        this.pagingConfig.totalItems = resp.total_record;
-        this.is_loader = false;
+
+      this.pagingConfig.totalItems = resp.total_record;
+      this.is_loader = false;
 
       this.cf.detectChanges();
     }, (err: any) => {
@@ -49,10 +55,19 @@ export class Categorie {
     });
   }
 
-   pageChanged(page: number) {
-    this.get_data(page);
+
+
+  pageChanged(page: number) {
+    this.pagingConfig.currentPage = page;
+
+    if (this.categorieLogs[page]) {
+      this.all_data = this.categorieLogs[page];
+      this.cf.detectChanges();
+    } else {
+      this.get_data({ page });
+    }
   }
-  
+
   update(item: any) {
     this.globle_s.modalOpen('categorie_Modal');
     console.log("::", item);
@@ -96,6 +111,11 @@ export class Categorie {
     if (this.categorie_ID != true) {
 
       this.api_s.postApi('categories-add', this.categorie_Form.value).then((resp: any) => {
+        this.categorieLogs = {};
+
+        this.pagingConfig.currentPage = 1;
+        this.get_data({ page: this.pagingConfig.currentPage });
+
         this.all_data.unshift(resp.data);
 
         this.dismissModal('categorie_Modal');
@@ -128,27 +148,19 @@ export class Categorie {
   }
 
   delete(item: any) {
-    this.api_s.postApi('categories-delete', { id: item.id }).then((resp: any) => {
-      // this.inquiry_data = resp.data;
-      //     this.inquiry_data = this.inquiry_data.filter(
-      //   (x: any) => x.id !== item
-      // );
-    }, (err: any) => {
-      //  this.isLoading = false;
-    });
-
-
-     this.globle_s.confirmAlert(
+    // 
+    this.globle_s.confirmAlert(
       'Are you sure you want to delete this product?',
       'warning'
     ).then((result: any) => {
       if (result) {
-        this.api_s.postApi('categories-delete', { id : item.id }).then((resp: any) => {
+        this.api_s.postApi('categories-delete', { id: item.id }).then((resp: any) => {
           if (resp && resp.status) {
             this.globle_s.showToastr('Success', resp?.message);
-
-            this.get_data(this.pagingConfig.currentPage);
-    
+            this.all_data = this.all_data.filter(
+              (obj: any) => obj.id !== item.id
+            );
+            this.cf.detectChanges();
 
           } else {
             this.globle_s.showToastr('Error', resp?.message);

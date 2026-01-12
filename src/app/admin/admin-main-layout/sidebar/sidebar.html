@@ -20,7 +20,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="'/lamcartAdmin/features/contact-list'" routerLinkActive="active">
-                     <i class="bi bi-person-lines-fill me-2"></i>
+                    <i class="bi bi-person-lines-fill me-2"></i>
                     <span>Inquiry</span>
                 </a>
             </li>
@@ -41,14 +41,20 @@
 
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="'/lamcartAdmin/features/product'" routerLinkActive="active">
-                   <i class="bi bi-box-seam me-2"></i>
-                    
+                    <i class="bi bi-box-seam me-2"></i>
+
                     <span>Product</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-danger" >
+                <a class="nav-link" [routerLink]="'/lamcartAdmin/features/change-password'" routerLinkActive="active">
+                    <i class="bi bi-key me-2"></i> Change Password
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-danger" (click)="g_service.logout()" [routerLink]="'/lamcartAdmin/login'" routerLinkActive="active">
                     <i class="bi bi-box-arrow-right me-2"></i> Logout
                 </a>
             </li>

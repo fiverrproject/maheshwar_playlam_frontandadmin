@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h3>Change Password</h3>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Username (static) -->
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" id="username" class="form-control rounded-3" formControlName="username" readonly />
+    </div>
+
+    <!-- Old Password -->
+    <div class="mb-3">
+      <label for="old_password" class="form-label rounded-3">Old Password</label>
+      <input type="password" id="old_password" class="form-control" formControlName="old_password" placeholder="Enter old password" />
+      <div *ngIf="changePasswordForm.get('old_password')?.invalid && changePasswordForm.get('old_password')?.touched" class="text-danger">
+        Old password is required 
+      </div>
+    </div>
+
+    <!-- New Password -->
+    <div class="mb-3">
+      <label for="new_password" class="form-label rounded-3">New Password</label>
+      <input type="password" id="new_password" class="form-control" formControlName="new_password" placeholder="Enter new password" />
+      <div *ngIf="changePasswordForm.get('new_password')?.invalid && changePasswordForm.get('new_password')?.touched" class="text-danger">
+        New password is required 
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="changePasswordForm.invalid">Change Password</button>
+  </form>
+</div>

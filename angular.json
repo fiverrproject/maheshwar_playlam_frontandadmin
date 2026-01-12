@@ -52,12 +52,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "2MB",
                   "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
+                  "maximumWarning": "2MB",
                   "maximumError": "8kB"
                 }
               ],
@@ -98,7 +98,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
                "public/lib/wow/wow.min.js",

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Globle } from '../../../core/services/globle';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +12,7 @@ export class Sidebar {
 
      constructor(
       private router: Router,
+      public g_service:Globle
    ) {
 
     
@@ -19,8 +21,8 @@ export class Sidebar {
    ngOnInit(): void {
    }
 
-   goToPage(route: any) {
-      this.router.navigate([route]);
-   }
+   // goToPage(route: any) {
+   //    this.router.navigate([route]);
+   // }
 
 }

@@ -18,6 +18,9 @@ export class Consultant {
     totalItems: 0
   };
 
+  consultantLogs: any = {};
+
+
   is_loader = false;
   consultant_Form!: FormGroup;
   consultant_ID: any = false;
@@ -27,7 +30,7 @@ export class Consultant {
     private cf: ChangeDetectorRef,
     public globle_s: Globle,
     private fb: FormBuilder,) {
-    this.get_data(1);
+    this.get_data({ page: 1 });
 
     this.consultant_Form = this.fb.group({
       id: '',
@@ -38,24 +41,26 @@ export class Consultant {
     });
 
   }
-  pageCache: { [key: number]: any[] } = {};
 
-  get_data(page: number = 1) {
-
-    if (this.pageCache[page]) {
-      this.all_data = this.pageCache[page];
-      this.pagingConfig.currentPage = page;
-      return;
-    }
-
+  get_data(body: any) {
     this.is_loader = true;
+    const page = body.page || 1;
+
+    // if (this.pageCache[page]) {
+    //   this.all_data = this.pageCache[page];
+    //   this.pagingConfig.currentPage = page;
+    //   return;
+    // }
+
+    
     this.pagingConfig.currentPage = page;
 
     this.api_s.postApi(`consonantal-get?page=${page}`, '').then(
       (resp: any) => {
 
-        this.all_data = resp.data || [];
-        this.pageCache[page] = this.all_data;
+       
+        this.consultantLogs[page] = resp.data;
+        this.all_data = resp.data;
 
         this.pagingConfig.totalItems = resp.total_record;
         this.is_loader = false;
@@ -69,9 +74,15 @@ export class Consultant {
 
 
   pageChanged(page: number) {
-    this.get_data(page);
-  }
+    this.pagingConfig.currentPage = page;
 
+    if (this.consultantLogs[page]) {
+      this.all_data = this.consultantLogs[page];
+      this.cf.detectChanges();
+    } else {
+      this.get_data({ page });
+    }
+  }
 
   opnModal(modalName: string) {
     this.globle_s.modalOpen(modalName);
@@ -133,16 +144,30 @@ export class Consultant {
     //   //  this.isLoading = false;
     // });
 
-     this.globle_s.confirmAlert(
+    this.globle_s.confirmAlert(
       'Are you sure you want to delete this product?',
       'warning'
     ).then((result: any) => {
+
+         if (!result) {
+        return;
+      }
+      this.is_loader = true;
+
       if (result) {
         this.api_s.postApi('consonantal-delete', { id: item.id }).then((resp: any) => {
           if (resp && resp.status) {
             this.globle_s.showToastr('Success', resp?.message);
+            this.all_data = this.all_data.filter(
+              (obj: any) => obj.id !== item.id
+            );
+            // this.cf.detectChanges();
 
-               this.get_data(this.pagingConfig.currentPage);
+            
+              this.is_loader = false;
+              this.cf.detectChanges();
+            
+            // this.get_data(this.pagingConfig.currentPage);
 
           } else {
             this.globle_s.showToastr('Error', resp?.message);
@@ -162,17 +187,14 @@ export class Consultant {
 
     const formData = new FormData();
 
-    // 🔹 add all form fields
     formData.append('name', this.consultant_Form.value.name);
     formData.append('email', this.consultant_Form.value.email);
     formData.append('designation', this.consultant_Form.value.designation);
 
-    // 🔹 add file (only if selected)
     if (this.consultant_Form.value.profile) {
       formData.append('profile', this.consultant_Form.value.profile);
     }
 
-    // 🔹 add id for edit
     if (this.consultant_Form) {
       formData.append('id', this.consultant_Form.value.id);
     }
@@ -183,9 +205,17 @@ export class Consultant {
         console.log('Edit FORM DATA confirm', resp);
         this.all_data.unshift(resp.data);
 
+        this.consultantLogs = {};
+
+        this.pagingConfig.currentPage = 1;
+        this.get_data({ page: this.pagingConfig.currentPage });
+
+        this.all_data.unshift(resp.data);
+
         this.dismissModal('consultant_Modal');
         this.consultant_Form.reset();
         this.consultant_ID = null;
+        this.cf.detectChanges();
 
         // this.globle_s.showToastr('Success', 'Form SuccessFully Site Config');
       }, (err: any) => {

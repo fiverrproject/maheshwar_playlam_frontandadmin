@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 declare let $: any;
 import { ToastrService } from 'ngx-toastr';
 import swal from 'sweetalert';
@@ -9,7 +10,9 @@ import swal from 'sweetalert';
 })
 export class Globle {
 
-  constructor( private toastr: ToastrService) {
+  constructor( private toastr: ToastrService,
+     public router: Router
+  ) {
 
   }
 
@@ -22,6 +25,13 @@ export class Globle {
   modalDismiss(modalName: string) {
     (document.activeElement as HTMLElement)?.blur();
     $('#' + modalName).modal("hide");
+  }
+
+
+  logout() {
+    localStorage.removeItem('lamcartadmin');
+    this.router.navigate(['/lamcartAdmin/login']);
+    this.showToastr('Success', 'logout successful');
   }
 
   //  showToastr(key: string, msg: string) {

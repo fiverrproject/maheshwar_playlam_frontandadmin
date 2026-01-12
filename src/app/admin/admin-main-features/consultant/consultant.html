@@ -100,7 +100,7 @@
             <div class="text-center py-5" *ngIf="is_loader">
                 <div class="spinner-border text-dark" role="status"></div>
             </div>
-            <div class="table-responsive"> <!-- Added table-responsive class -->
+            <div class="table-responsive" *ngIf="!is_loader" > <!-- Added table-responsive class -->
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
@@ -187,26 +187,26 @@
                         <!-- Name -->
                         <div class="col-md-6">
                             <label class="form-label">Name</label>
-                            <input type="text" class="form-control" formControlName="name" placeholder="Enter name">
+                            <input type="text" class="form-control rounded-3" formControlName="name" placeholder="Enter name">
                         </div>
 
                         <!-- Email -->
                         <div class="col-md-6">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                            <input type="email" class="form-control rounded-3" formControlName="email" placeholder="Enter email">
                         </div>
 
                         <!-- Designation -->
                         <div class="col-md-6">
                             <label class="form-label">Designation</label>
-                            <input type="text" class="form-control" formControlName="designation"
+                            <input type="text" class="form-control rounded-3" formControlName="designation"
                                 placeholder="Enter designation">
                         </div>
 
                         <!-- Profile Image -->
                         <div class="col-md-6">
                             <label class="form-label">Profile Image</label>
-                            <input type="file" class="form-control" (change)="onFileChange($event)">
+                            <input type="file" class="form-control rounded-3" (change)="onFileChange($event)">
 
                             <!-- Image preview -->
                             <div class="mt-2" *ngIf="imagePreview">

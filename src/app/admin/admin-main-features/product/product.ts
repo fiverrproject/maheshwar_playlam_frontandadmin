@@ -194,12 +194,13 @@ export class Product {
 
           // save uploaded image name
           this.tempUploadedImages.push(imageName);
-          this.cf.detectChanges();
+
           // preview
           this.imagePreviews.push({
             url: this.api_s.imageBaseUrl + 'temp_image/' + imageName,
             isOld: false
           });
+          this.cf.detectChanges();
         },
         () => {
           this.globle_s.showToastr('Error', 'Image upload error');
@@ -257,13 +258,13 @@ export class Product {
       } else {
         this.globle_s.showToastr('Error', resp.message);
       }
-      setTimeout(() => {
-        this.isPageLoading = false; // ✅ SAFE
-      });
+
+      this.isPageLoading = false; // ✅ SAFE
+      this.cf.detectChanges();
     }, () => {
-      setTimeout(() => {
-        this.isPageLoading = false; // ✅ SAFE
-      });
+
+      this.isPageLoading = false; // ✅ SAFE
+
       this.globle_s.showToastr('Error', 'Something went wrong. Please try again.');
     });
   }
@@ -272,6 +273,7 @@ export class Product {
 
     if (this.productLogs[page]) {
       this.productList = this.productLogs[page];
+      this.cf.detectChanges();
     } else {
       this.getProduct({ page });
     }
@@ -309,7 +311,7 @@ export class Product {
     // }
 
     this.isBTNLoding = true;
-
+    this.isPageLoading = true;
     //  FORM DATA
     const formData = new FormData();
 
@@ -363,11 +365,13 @@ export class Product {
           } else {
             // return
             this.productLogs = {};
+
             this.pagingConfig.currentPage = 1;
             this.getProduct({ page: this.pagingConfig.currentPage });
             this.productList.unshift(resp.data);
 
           }
+          this.isPageLoading = false;
           this.globle_s.showToastr('Success', resp.message);
           this.closemodel_production();
 
@@ -393,19 +397,40 @@ export class Product {
       'Are you sure you want to delete this product?',
       'warning'
     ).then((result: any) => {
-      if (result) {
-        this.api_s.postApi('product-delete', { id }).then((resp: any) => {
+
+      if (!result) {
+        return;
+      }
+
+      // ✅ show loader ONLY after confirmation
+      this.isPageLoading = true;
+
+      this.api_s.postApi('product-delete', { id: id }).then(
+        (resp: any) => {
+
           if (resp && resp.status) {
             this.globle_s.showToastr('Success', resp?.message);
-
-            this.productLogs = {};
-            this.getProduct({ page: this.pagingConfig.currentPage });
-
+            this.productList = this.productList.filter(
+              (obj: any) => obj.id !== id
+            );
+            this.cf.detectChanges();
           } else {
             this.globle_s.showToastr('Error', resp?.message);
           }
-        });
-      }
+
+          // ✅ hide loader safely
+          setTimeout(() => {
+            this.isPageLoading = false;
+            this.cf.detectChanges();
+          });
+
+        },
+        () => {
+          setTimeout(() => {
+            this.isPageLoading = false;
+          });
+        }
+      );
     });
   }
 

@@ -8,6 +8,7 @@ import { SiteConfig } from './admin-main-features/site-config/site-config';
 import { Consultant } from './admin-main-features/consultant/consultant';
 import { Categorie } from './admin-main-features/categorie/categorie';
 import { Product } from './admin-main-features/product/product';
+import { ChangePassd } from './admin-main-features/change-passd/change-passd';
 
 const routes: Routes = [
    {
@@ -20,7 +21,8 @@ const routes: Routes = [
          { path: 'consultant', component: Consultant },
          { path: 'categorie', component: Categorie },
          { path: 'product', component: Product },
-        
+        { path: 'change-password', component: ChangePassd },
+
          { path: '', redirectTo: '/lamcartAdmin/features/dashboard', pathMatch: 'full' }
       ]
    },

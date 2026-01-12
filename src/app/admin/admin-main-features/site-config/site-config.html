@@ -15,7 +15,8 @@
     </div>
 
 
-    <button class="btn btn-dark" (click)="opnModal('site_configModal')">
+    <button class="btn btn-dark" [disabled]="site_config.length >= 1"
+      (click)="opnModal('site_configModal')">
       <i class="bi bi-plus-lg me-1"></i> Add Site Config
     </button>
 
@@ -23,12 +24,12 @@
 
   <!-- Card Body -->
 
-  <div class="card border-0 shadow-sm">
+  <div class="card border-0 shadow-sm ">
     <div class="card-body ">
       <div class="text-center py-5" *ngIf="is_loader">
         <div class="spinner-border text-dark" role="status"></div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive " *ngIf="!is_loader">
         <table class="table table-hover align-middle  ">
           <thead class="table-light">
             <tr>

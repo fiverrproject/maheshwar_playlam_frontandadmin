@@ -1,1 +1,107 @@
-<p>login works!</p>
+<div class="container-fluid py-5 mt-5">
+  <div class="row h-100 align-items-center justify-content-center">
+    <div class="col-lg-4 col-md-6 col-12">
+      <div class="main-card-signin">
+        <div class="main-signin-header text-center mb-4">
+          <h2>Welcome back!</h2>
+          <h6 class="text-muted">Please sign in to continue</h6>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+          <!-- Username -->
+          <div class="mb-3">
+            <label class="form-label">User name</label>
+            <input type="text" class="form-control rounded-3" formControlName="username" placeholder="Enter User Name"
+              required>
+           
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <div class="passwordInput">
+              <input type="password" class="form-control rounded-3" id="password" formControlName="password"
+                placeholder="Enter your password" required>
+              <i class="bi bi-eye-fill" (click)="togglePassword()"></i>
+            </div>
+           
+            <div class="d-flex justify-content-between mt-2">
+              <!-- <span class="forget-password">Forget Password</span> -->
+              <!-- <span class="signup-link text-end" (click)="opnModal('userModal')" >Sign Up</span> -->
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="text-center mt-4 mb-2">
+            <button type="submit" class="btn btn-primary w-50 rounded-3" [disabled]="loginForm.invalid">
+              Sign In
+            </button>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="modal fade" id="userModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <form [formGroup]="registrationForm" (ngSubmit)="registrationSubmit()">
+
+        
+        <div class="modal-header">
+          <h5 class="modal-title text-primary">
+            Registration Form
+          </h5>
+          <button type="button" class="btn-close" (click)="dismissModal('userModal')"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-3">
+
+            <div class="col-12">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control rounded-3" formControlName="username" placeholder="Enter username">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control rounded-3" formControlName="password" placeholder="Enter password">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" class="form-control rounded-3" formControlName="confirm_passd" placeholder="Confirm your password">
+              
+             
+              <small class="text-danger" *ngIf="registrationForm.get('confirm_passd')?.invalid && registrationForm.get('confirm_passd')?.touched">
+                Confirm Password is required
+              </small>
+
+              <div *ngIf="registrationForm.get('confirm_passd')?.touched && registrationForm.hasError('passwordMismatch')" class="text-danger">
+                Passwords do not match.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="dismissModal('userModal')">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">
+            Save
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div> -->
+
+

@@ -99,9 +99,9 @@ is_loader:boolean =false;
         this.site_configForm.reset();
         this.site_config_ID = null;
 
-        // this.globle_s.showToastr('Success', 'Form SuccessFully Site Config');
+        this.globle_s.showToastr('Success', 'Update SuccessFully Site Config');
       }, (err: any) => {
-        // this.globle_s.showToastr('Error', 'Not Form Submit');
+        this.globle_s.showToastr('Error', 'Not Form Submit');
       });
     } else {
       this.api_s.postApi('site-config-edit', this.site_configForm.value).then((resp: any) => {
@@ -119,9 +119,9 @@ is_loader:boolean =false;
         this.dismissModal('site_configModal');
         this.site_configForm.reset();
         this.site_config_ID = null;
-        // this.globle_s.showToastr('Success', 'Form SuccessFully Site Config');
+        this.globle_s.showToastr('Success', 'Add SuccessFully Site Config');
       }, (err: any) => {
-        // this.globle_s.showToastr('Error', 'Not Form Submit');
+        this.globle_s.showToastr('Error', 'Not Form Submit');
       });
     }
 

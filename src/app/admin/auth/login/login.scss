@@ -1,0 +1,40 @@
+ .main-card-signin {
+     background: #fff;
+     border-radius: 10px;
+     padding: 30px;
+     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+ }
+
+ .passwordInput {
+     position: relative;
+ }
+
+ .passwordInput i {
+     position: absolute;
+     right: 12px;
+     top: 50%;
+     transform: translateY(-50%);
+     cursor: pointer;
+     color: #6c757d;
+ }
+
+.forget-password {
+      color: #6c757d;
+  text-decoration: none;
+  font-size: 0.900rem;
+}
+
+.forget-password:hover {
+  color: #0e0d0d;
+  cursor: pointer;
+}
+.signup-link {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.signup-link:hover {
+   cursor: pointer;
+  color: #0e0d0d;
+}

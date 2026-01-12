@@ -61,7 +61,7 @@
       <div class="text-center py-5" *ngIf="is_loader">
         <div class="spinner-border text-dark" role="status"></div>
       </div>
-      <div class="table-responsive"> <!-- Added table-responsive class -->
+      <div class="table-responsive" *ngIf="!is_loader"> <!-- Added table-responsive class -->
         <table class="table table-hover align-middle">
           <thead class="table-light">
             <tr>
