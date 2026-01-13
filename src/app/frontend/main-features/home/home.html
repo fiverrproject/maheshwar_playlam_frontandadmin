@@ -487,11 +487,14 @@
       </div>
 
       <div class="row g-4 portfolio-container">
-         <div *ngIf="filteredProducts.length === 0" 
-         class="no-products">
+         <div *ngIf="all_data?.length === 0" class="no-products">
             {{ noProductsMessage || 'No products available.' }}
          </div>
-         <ng-container *ngFor="let item of filteredProducts">
+
+         <div class="text-center py-5" *ngIf="is_loader">
+            <div class="spinner-border text-dark" role="status"></div>
+         </div>
+         <ng-container *ngFor="let item of all_data">
             <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp" [class]="'category-' + item.category_id"
                data-wow-delay="0.1s">
                <div class="rounded overflow-hidden h-100 d-flex flex-column border border-5 border-light">
@@ -514,7 +517,14 @@
                   </div>
                </div>
             </div>
+
          </ng-container>
+
+         <div class="text-center" *ngIf="total != all_data?.length && all_data?.length ">
+            <button class="btn btn-primary py-md-3 px-md-5 animated " (click)="load_more()">Load
+               More</button>
+         </div>
+
       </div>
 
 
@@ -577,6 +587,8 @@
             </div>
          </div>
       </div>
+
+
    </div>
 </div>
 <!-- Quote End -->

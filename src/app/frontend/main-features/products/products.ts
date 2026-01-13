@@ -8,7 +8,7 @@ import { Api } from '../../../core/services/api';
    styleUrl: './products.scss',
 })
 export class Products {
-   all_data: any;
+    all_data: any[] = [];
    // products: any[] = [
    //    {
    //       category: 'first',
@@ -73,6 +73,9 @@ export class Products {
    filteredProducts: any[] = [];
    categories: any[] = [];
    activeCategoryId: any = 'all';
+   skip: number = 0;
+   categories_all: any;
+   total: any;
 
    ngOnInit() {
       // Replace with your actual API data
@@ -88,21 +91,58 @@ export class Products {
    }
 
 
-    noProductsMessage: string = '';
+   noProductsMessage: string = '';
+   is_loader = false;
    setFilter(categoryId: number | 'all'): void {
       this.activeCategoryId = categoryId;
-
-      // Filter products based on selected category
+      const body = {
+         skip: 0,
+         category_id: this.activeCategoryId == 'all' ? 0 : this.activeCategoryId
+      }
+      this.all_data = [];
+      this.noProductsMessage = '';
       if (categoryId === 'all') {
-         this.filteredProducts = this.all_data;
-         this.noProductsMessage = '';
+         this.get_product(body);
+         
       } else {
-         this.filteredProducts = this.all_data.filter((product: any) => product.category_id === categoryId);
-         this.noProductsMessage = this.filteredProducts.length === 0 ? 'No products found for this category.' : '';
+         this.get_product(body);
+         this.noProductsMessage = '';
       }
    }
 
-   categories_all: any;
+
+   get_product(body: any) {
+      this.is_loader = true;
+      this.api_s.postApi('product-page-get', body).then((resp: any) => {
+          this.is_loader = false;
+         if (resp.status) {
+            this.all_data.push(...resp.data);
+           
+            this.categories = this.getCategories(this.all_data);
+            this.total = resp.total;
+            console.log(":::::total", resp.total);
+            console.log(":::p", this.all_data);
+            if (this.all_data.length === 0) {
+               this.noProductsMessage = 'No products found for this category.';
+            }
+         }
+
+         this.cf.detectChanges();
+
+      }, (err: any) => {
+
+      });
+   }
+
+   load_more() {
+      const body = {
+         skip: this.all_data.length,
+         category_id: this.activeCategoryId == 'all' ? 0 : this.activeCategoryId
+      }
+      this.get_product(body);
+   }
+
+
    get_data() {
       // product-get
       this.api_s.postApi('categories-get', '').then((resp: any) => {
@@ -111,18 +151,23 @@ export class Products {
          this.cf.detectChanges();
 
       }, (err: any) => {
+      });
 
-      });
-      this.api_s.postApi('product-get', '').then((resp: any) => {
-         this.all_data = resp.data;
-         this.categories = this.getCategories(this.all_data);
-         // console.log(":::::categories",this.categories);
-         this.filteredProducts = this.all_data;
-         this.cf.detectChanges();
-         // console.log(":::::", this.all_data);
-      }, (err: any) => {
-         // this.isLoading = false;
-      });
+      const body = {
+            skip: this.skip,
+            category_id: ''
+         }
+         this.get_product(body);
+      // this.api_s.postApi('product-get', '').then((resp: any) => {
+      //    this.all_data = resp.data;
+      //    this.categories = this.getCategories(this.all_data);
+      //    // console.log(":::::categories",this.categories);
+      //    this.filteredProducts = this.all_data;
+      //    this.cf.detectChanges();
+      //    // console.log(":::::", this.all_data);
+      // }, (err: any) => {
+      //    // this.isLoading = false;
+      // });
    }
 
 }

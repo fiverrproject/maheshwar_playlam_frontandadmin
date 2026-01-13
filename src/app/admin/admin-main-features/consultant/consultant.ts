@@ -107,9 +107,11 @@ export class Consultant {
       // create image preview
       const reader = new FileReader();
       reader.onload = () => {
-        this.imagePreview = reader.result; // base64 string
+        this.imagePreview = reader.result;
+        this.cf.detectChanges(); // base64 string
       };
       reader.readAsDataURL(file);
+        
     }
   }
 

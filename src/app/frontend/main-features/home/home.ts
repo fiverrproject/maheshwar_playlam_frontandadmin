@@ -10,12 +10,14 @@ declare var $: any;
    styleUrl: './home.scss',
 })
 export class Home implements AfterViewInit {
-   all_data: any;
+   all_data: any[] = [];
    consonantal_data: any;
    filteredProducts: any[] = [];
    categories: any[] = [];
    activeCategoryId: any = 'all';
-
+   is_loader = false;
+   skip: number = 0;
+   categories_all: any;
 
    // products: any[] = [
    //    {
@@ -115,37 +117,61 @@ export class Home implements AfterViewInit {
       }, 100);
    }
 
-
    ngOnInit() {
    }
-
-
-   // setFilter(categoryId: any) {
-   //    this.activeCategoryId = categoryId;
-   //    if (categoryId === 'all') {
-   //       this.filteredProducts = this.all_data;
-   //       console.log("::::: filteredProducts",this.filteredProducts)
-   //    } else {
-   //       this.filteredProducts = this.all_data.filter((p: any) => p.category_id === categoryId);
-   //    }
-   // }
 
    // Active category ID
    noProductsMessage: string = '';
    setFilter(categoryId: number | 'all'): void {
       this.activeCategoryId = categoryId;
-
-      // Filter products based on selected category
+      const body = {
+         skip: 0,
+         category_id: this.activeCategoryId == 'all' ? 0 : this.activeCategoryId
+      }
+      this.all_data = [];
+      this.noProductsMessage = '';
       if (categoryId === 'all') {
-         this.filteredProducts = this.all_data;
-         this.noProductsMessage = '';
+         this.get_product(body);
+
       } else {
-         this.filteredProducts = this.all_data.filter((product: any) => product.category_id === categoryId);
-         this.noProductsMessage = this.filteredProducts.length === 0 ? 'No products found for this category.' : '';
+         this.get_product(body);
+         this.noProductsMessage = '';
       }
    }
 
-   categories_all: any;
+
+   get_product(body: any) {
+      this.is_loader = true;
+      this.api_s.postApi('product-page-get', body).then((resp: any) => {
+         this.is_loader = false;
+         if (resp.status) {
+            this.all_data.push(...resp.data);
+            this.categories = this.getCategories(this.all_data);
+            this.total = resp.total;
+            console.log(":::::total", resp.total);
+            console.log(":::p", this.all_data);
+            if (this.all_data.length === 0) {
+               this.noProductsMessage = 'No products found for this category.';
+            }
+
+         }
+
+         this.cf.detectChanges();
+
+      }, (err: any) => {
+
+      });
+   }
+
+   total: any;
+   load_more() {
+      const body = {
+         skip: this.all_data.length,
+         category_id: this.activeCategoryId == 'all' ? 0 : this.activeCategoryId
+      }
+      this.get_product(body);
+   }
+
    get_data() {
       // product-get
       this.api_s.postApi('categories-get', '').then((resp: any) => {
@@ -157,23 +183,17 @@ export class Home implements AfterViewInit {
 
       });
 
-      this.api_s.postApi('product-get', '').then((resp: any) => {
-         this.all_data = resp.data;
-         this.categories = this.getCategories(this.all_data);
-         console.log(":::p", this.all_data);
-         this.filteredProducts = this.all_data;
-         this.cf.detectChanges();
-
-      }, (err: any) => {
-
-      });
+      const body = {
+         skip: this.skip,
+         category_id: ''
+      }
+      this.get_product(body);
 
       // product-get
       this.api_s.postApi('consonantal-get', '').then((resp: any) => {
          this.consonantal_data = resp.data;
          this.cf.detectChanges();
       }, (err: any) => {
-         // this.isLoading = false;
 
       });
    }
@@ -183,6 +203,7 @@ export class Home implements AfterViewInit {
       products.forEach(p => map[p.category_id] = p.category_name);
       return Object.keys(map).map(id => ({ id: +id, name: map[id] }));
    }
+
 
 
 

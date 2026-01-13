@@ -118,7 +118,6 @@ export class Product {
       this.isEditMode = false;
     } else {
       this.isEditMode = true;
-
       this.productForm.patchValue({
         id: data.id,
         name: data.name,
