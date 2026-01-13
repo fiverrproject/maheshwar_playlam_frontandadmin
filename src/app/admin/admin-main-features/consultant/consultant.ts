@@ -25,7 +25,7 @@ export class Consultant {
   consultant_Form!: FormGroup;
   consultant_ID: any = false;
   all_data: any;
-  image_folder = 'http://192.168.1.37:8001/image/profile/';
+  image_folder :any;
   constructor(public api_s: Api,
     private cf: ChangeDetectorRef,
     public globle_s: Globle,
@@ -40,6 +40,7 @@ export class Consultant {
       profile: ['']
     });
 
+    this.image_folder = this.api_s.imageBaseUrl + 'profile/';
   }
 
   get_data(body: any) {
