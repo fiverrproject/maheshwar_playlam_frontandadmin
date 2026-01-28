@@ -251,7 +251,6 @@ export class Product {
         this.productLogs[page] = products;
         this.productList = products;
 
-        console.log("::::data", this.productList)
         this.pagingConfig.totalItems = resp.total_record;
         this.cf.detectChanges();
       } else {

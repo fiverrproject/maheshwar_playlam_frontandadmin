@@ -30,6 +30,11 @@ export class Contact {
       subject: ['',],
       message: ['',]
     });
+    this.api_s.updateMetaInfo(
+      'Contact',
+      'Have a question or need help choosing the right laminate? Fill out the form below and our team will get back to you shortly.',
+      'contact'
+    )
   }
 
 
@@ -40,11 +45,9 @@ export class Contact {
   onSubmit() {
     this.submitted = true;
 
-    console.log(this.inquiryForm.value);
     if (this.inquiryForm.valid) {
       this.api_s.postApi('inquiry-add', this.inquiryForm.value).then((resp: any) => {
         this.inquiry_data = resp.data;
-        console.log(":::::", this.inquiry_data);
         this.submitted = false;
         this.inquiryForm.reset();
         this.globle_s.showToastr('Success', resp?.message);

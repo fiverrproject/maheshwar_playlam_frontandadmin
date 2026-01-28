@@ -45,7 +45,6 @@ is_loader:boolean =false;
      this.is_loader = true;
     this.api_s.postApi('site-config-get', '').then((resp: any) => {
       this.site_config = resp.data;
-      console.log("1111", this.site_config);
      
    
           this.is_loader = false;
@@ -58,7 +57,6 @@ is_loader:boolean =false;
 
   update(item: any) {
     this.globle_s.modalOpen('site_configModal');
-    console.log("::", item);
     this.site_config_ID = true;
     this.site_configForm.patchValue({
       id: item.id,
@@ -91,7 +89,6 @@ is_loader:boolean =false;
     if (this.site_config_ID != true) {
 
       this.api_s.postApi('site-config-add', this.site_configForm.value).then((resp: any) => {
-        console.log('FORM DATA confirm', this.site_configForm.value);
 
         this.site_config.unshift(resp.data);
 
@@ -105,7 +102,6 @@ is_loader:boolean =false;
       });
     } else {
       this.api_s.postApi('site-config-edit', this.site_configForm.value).then((resp: any) => {
-        console.log('Edit FORM DATA confirm', this.site_configForm.value);
 
 
         const index = this.site_config.findIndex(

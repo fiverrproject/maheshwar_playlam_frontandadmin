@@ -70,7 +70,6 @@ export class Categorie {
 
   update(item: any) {
     this.globle_s.modalOpen('categorie_Modal');
-    console.log("::", item);
     this.categorie_ID = true;
     this.categorie_Form.patchValue({
       id: item.id,

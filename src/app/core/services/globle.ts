@@ -17,8 +17,6 @@ export class Globle {
   }
 
   modalOpen(modalName: string) {
-    console.log("modalName>>", modalName);
-    
     $('#' + modalName).modal("show");
   }
 

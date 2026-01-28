@@ -83,7 +83,6 @@ export class Login {
 
   opnModal(modalName: string) {
     this.globle_s.modalOpen(modalName);
-    console.log("::::modal", modalName)
   }
 
   // Handle form submission

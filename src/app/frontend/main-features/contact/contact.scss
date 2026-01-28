@@ -1,0 +1,43 @@
+.no-products {
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+}
+
+@media (min-width: 1200px) {
+
+  h2,
+  .h2 {
+    font-size: 2.5rem;
+  }
+}
+h2, .h2 {
+    font-size: calc(1.375rem + 1.5vw);
+}
+
+h2 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+.section-title h2 {
+    position: relative;
+    display: inline-block;
+    padding: 0 60px;
+}
+.section-title h2::before {
+    left: 0;
+}
+.section-title h2::before, .section-title h2::after {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 5px;
+    bottom: 0;
+    background: var(--dark);
+}

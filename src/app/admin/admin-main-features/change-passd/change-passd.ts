@@ -26,7 +26,6 @@ export class ChangePassd {
 
   ngOnInit(): void {
       const user:any = localStorage.getItem('lamcartadmin');
-    console.log("USername",JSON.parse(user).username)
   
       this.username = JSON.parse(user).username; 
     this.changePasswordForm = this.fb.group({
@@ -41,7 +40,6 @@ export class ChangePassd {
   onSubmit() {
     if (this.changePasswordForm.valid) {
       const formData = this.changePasswordForm.value;
-      console.log('Password change requested:', formData);
 
         this.api_s.postApi('change-password', formData).then((resp: any) => {
       if (resp && resp.status) {

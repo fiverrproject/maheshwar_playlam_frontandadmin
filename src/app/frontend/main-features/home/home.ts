@@ -7,7 +7,7 @@ declare var $: any;
    selector: 'app-home',
    standalone: false,
    templateUrl: './home.html',
-   styleUrl: './home.scss',
+   styleUrl: './home.scss'
 })
 export class Home implements AfterViewInit {
    all_data: any[] = [];
@@ -18,53 +18,22 @@ export class Home implements AfterViewInit {
    is_loader = false;
    skip: number = 0;
    categories_all: any;
-
-   // products: any[] = [
-   //    {
-   //       category: 'first',
-   //       image: 'img/front-img/portfolio-1.jpg',
-   //       title: 'Light Oak',
-   //       type: 'General Designs'
-   //    },
-   //    {
-   //       category: 'second',
-   //       image: 'img/front-img/portfolio-2.jpg',
-   //       title: 'Dark Walnut',
-   //       type: 'Custom Designs'
-   //    },
-   //    {
-   //       category: 'first',
-   //       image: 'img/front-img/portfolio-3.jpg',
-   //       title: 'Grey Marble',
-   //       type: 'General Designs'
-   //    },
-   //    {
-   //       category: 'second',
-   //       image: 'img/front-img/portfolio-4.jpg',
-   //       title: 'Natural Teak',
-   //       type: 'Custom Designs'
-   //    },
-   //    {
-   //       category: 'first',
-   //       image: 'img/front-img/portfolio-5.jpg',
-   //       title: 'Olive Green',
-   //       type: 'General Designs'
-   //    },
-   //    {
-   //       category: 'second',
-   //       image: 'img/front-img/portfolio-6.jpg',
-   //       title: 'Soft Beige',
-   //       type: 'Custom Designs'
-   //    }
-   // ];
-
    activeFilter: string = 'all';
 
    constructor(
       public frontCommon: FrontCommon,
       public api_s: Api,
-      private cf: ChangeDetectorRef) {
+      private cf: ChangeDetectorRef,
+   ) {
       this.get_data();
+   }
+
+   ngOnInit() {
+      this.api_s.updateMetaInfo(
+         'Home',
+         'Lamcart is a trusted laminate showcase brand based in Gujarat, India, offering a wide range of **premium decorative laminates, interior laminates, and custom laminate designs**. We specialize in innovative **surface finishes, durable materials, and stylish solutions** for residential, commercial, and furniture applications. With a focus on quality, aesthetics, and functionality, Lamcart helps architects, interior designers, and homeowners bring modern spaces to life.',
+         'home'
+      )
    }
 
    ngAfterViewInit() {
@@ -103,21 +72,7 @@ export class Home implements AfterViewInit {
             }
          });
 
-         // var portfolioIsotope = $('.portfolio-container').isotope({
-         //    itemSelector: '.portfolio-item',
-         //    layoutMode: 'fitRows'
-         // });
-
-         // $('#portfolio-flters li').on('click', function () {
-         //    $("#portfolio-flters li").removeClass('active');
-         //    $(this).addClass('active');
-
-         //    portfolioIsotope.isotope({ filter: $(this).data('filter') });
-         // });
-      }, 100);
-   }
-
-   ngOnInit() {
+      }, 200);
    }
 
    // Active category ID
@@ -139,7 +94,6 @@ export class Home implements AfterViewInit {
       }
    }
 
-
    get_product(body: any) {
       this.is_loader = true;
       this.api_s.postApi('product-page-get', body).then((resp: any) => {
@@ -148,19 +102,14 @@ export class Home implements AfterViewInit {
             this.all_data.push(...resp.data);
             this.categories = this.getCategories(this.all_data);
             this.total = resp.total;
-            console.log(":::::total", resp.total);
-            console.log(":::p", this.all_data);
+         
             if (this.all_data.length === 0) {
                this.noProductsMessage = 'No products found for this category.';
             }
-
          }
 
          this.cf.detectChanges();
-
-      }, (err: any) => {
-
-      });
+      }, (err: any) => {});
    }
 
    total: any;
@@ -176,7 +125,6 @@ export class Home implements AfterViewInit {
       // product-get
       this.api_s.postApi('categories-get', '').then((resp: any) => {
          this.categories_all = resp.data;
-         console.log(":::all c", this.categories_all);
          this.cf.detectChanges();
 
       }, (err: any) => {

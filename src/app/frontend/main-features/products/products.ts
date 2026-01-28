@@ -8,62 +8,8 @@ import { Api } from '../../../core/services/api';
    styleUrl: './products.scss',
 })
 export class Products {
-    all_data: any[] = [];
-   // products: any[] = [
-   //    {
-   //       category: 'first',
-   //       image: 'img/front-img/portfolio-1.jpg',
-   //       title: 'Light Oak',
-   //       type: 'General Designs'
-   //    },
-   //    {
-   //       category: 'second',
-   //       image: 'img/front-img/portfolio-2.jpg',
-   //       title: 'Dark Walnut',
-   //       type: 'Custom Designs'
-   //    },
-   //    {
-   //       category: 'first',
-   //       image: 'img/front-img/portfolio-3.jpg',
-   //       title: 'Grey Marble',
-   //       type: 'General Designs'
-   //    },
-   //    {
-   //       category: 'second',
-   //       image: 'img/front-img/portfolio-4.jpg',
-   //       title: 'Natural Teak',
-   //       type: 'Custom Designs'
-   //    },
-   //    {
-   //       category: 'first',
-   //       image: 'img/front-img/portfolio-5.jpg',
-   //       title: 'Olive Green',
-   //       type: 'General Designs'
-   //    },
-   //    {
-   //       category: 'second',
-   //       image: 'img/front-img/portfolio-6.jpg',
-   //       title: 'Soft Beige',
-   //       type: 'Custom Designs'
-   //    }
-   // ];
-
+   all_data: any[] = [];
    activeFilter: string = 'all';
-
-   // setFilter(filter: string) {
-   //    this.activeFilter = filter;
-   // }
-
-   // get filteredProducts() {
-   //    if (this.activeFilter === 'all') {
-   //       return this.products;
-   //    }
-   //    return this.products.filter(p => p.category === this.activeFilter);
-   // }
-
-
-
-
 
    constructor(public api_s: Api,
       private cf: ChangeDetectorRef) {
@@ -78,10 +24,11 @@ export class Products {
    total: any;
 
    ngOnInit() {
-      // Replace with your actual API data
-
-
-
+      this.api_s.updateMetaInfo(
+         'Products',
+         ' We provide custom laminate design solutions tailored to your unique project requirements. Lamcart collaborates closely with architects, designers, and manufacturers to create bespoke patterns, textures, and finishes that match your vision. Our customization ensures exclusivity, precision, and brand identity in every project',
+         'products'
+      )
    }
 
    getCategories(products: any[]) {
@@ -103,7 +50,7 @@ export class Products {
       this.noProductsMessage = '';
       if (categoryId === 'all') {
          this.get_product(body);
-         
+
       } else {
          this.get_product(body);
          this.noProductsMessage = '';
@@ -114,14 +61,13 @@ export class Products {
    get_product(body: any) {
       this.is_loader = true;
       this.api_s.postApi('product-page-get', body).then((resp: any) => {
-          this.is_loader = false;
+         this.is_loader = false;
          if (resp.status) {
             this.all_data.push(...resp.data);
-           
+
             this.categories = this.getCategories(this.all_data);
             this.total = resp.total;
-            console.log(":::::total", resp.total);
-            console.log(":::p", this.all_data);
+      
             if (this.all_data.length === 0) {
                this.noProductsMessage = 'No products found for this category.';
             }
@@ -147,27 +93,17 @@ export class Products {
       // product-get
       this.api_s.postApi('categories-get', '').then((resp: any) => {
          this.categories_all = resp.data;
-         console.log(":::all c", this.categories_all);
          this.cf.detectChanges();
 
       }, (err: any) => {
       });
 
       const body = {
-            skip: this.skip,
-            category_id: ''
-         }
-         this.get_product(body);
-      // this.api_s.postApi('product-get', '').then((resp: any) => {
-      //    this.all_data = resp.data;
-      //    this.categories = this.getCategories(this.all_data);
-      //    // console.log(":::::categories",this.categories);
-      //    this.filteredProducts = this.all_data;
-      //    this.cf.detectChanges();
-      //    // console.log(":::::", this.all_data);
-      // }, (err: any) => {
-      //    // this.isLoading = false;
-      // });
+         skip: this.skip,
+         category_id: ''
+      }
+      this.get_product(body);
+      
    }
 
 }

@@ -29,7 +29,6 @@ export class Header {
       this.api_s.postApi('site-config-get', '').then((resp: any) => {
          this.all_data = resp.data[0];
          this.cf.detectChanges();
-         console.log(":::::", this.all_data);
       }, (err: any) => {
          //  this.isLoading = false;
       });

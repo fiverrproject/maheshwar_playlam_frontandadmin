@@ -119,7 +119,6 @@ export class Consultant {
 
   update(item: any) {
     this.globle_s.modalOpen('consultant_Modal');
-    console.log("::", item);
     this.consultant_ID = true;
     this.consultant_Form.patchValue({
       id: item.id,
@@ -205,7 +204,6 @@ export class Consultant {
     if (this.consultant_ID != true) {
 
       this.api_s.postApi('consonantal-add', formData).then((resp: any) => {
-        console.log('Edit FORM DATA confirm', resp);
         this.all_data.unshift(resp.data);
 
         this.consultantLogs = {};
@@ -220,14 +218,10 @@ export class Consultant {
         this.consultant_ID = null;
         this.cf.detectChanges();
 
-        // this.globle_s.showToastr('Success', 'Form SuccessFully Site Config');
       }, (err: any) => {
-        // this.globle_s.showToastr('Error', 'Not Form Submit');
       });
     } else {
       this.api_s.postApi('consonantal-edit', formData).then((resp: any) => {
-        console.log('Edit FORM DATA confirm', resp);
-
 
         const index = this.all_data.findIndex(
           (x: any) => x.id === this.consultant_Form.value.id
