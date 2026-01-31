@@ -49,7 +49,7 @@ export class LamPdf {
     const page = body.page || 1;
 
     this.isPageLoading = true;
-    this.api_s.postApi(`lam-pdf-get?page=${page}`, '').then((resp: any) => {
+    this.api_s.postApi(`lam-pdf-page-get?page=${page}`, '').then((resp: any) => {
       if (resp && resp.status) {
 
         const PDF_data = resp.data
