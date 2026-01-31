@@ -25,6 +25,7 @@ export class Home implements AfterViewInit {
    inquiry_data: any;
    submitted = false;
    testimonial: any[] = [];
+   pdf_all_Data: any;
 
 
    constructor(
@@ -36,6 +37,7 @@ export class Home implements AfterViewInit {
    ) {
       this.get_data();
       this.get_testimonial();
+      this.get_Pdf()
    }
 
    ngOnInit() {
@@ -218,13 +220,24 @@ export class Home implements AfterViewInit {
    get_testimonial() {
       this.api_s.postApi('testimonial-get', '').then((resp: any) => {
          if (resp.status) {
-            this.testimonial = resp.data;   // ya mapping with base URL
-            this.cf.detectChanges();        // DOM update karwao
-            this.initTestimonialCarousel(); // phir Owl init
+            this.testimonial = resp.data;
+            this.cf.detectChanges();
+            this.initTestimonialCarousel();
          }
       }, (err: any) => {
          console.log(err);
       });
+   }
+   get_Pdf() {
+      this.api_s.postApi('lam-pdf-get', '').then((resp: any) => {
+         this.pdf_all_Data = resp.data;
+      }, (err: any) => {
+         console.log(err);
+      });
+   }
+   openPdf(pdfName: string) {
+      const url = this.api_s.imageBaseUrl + 'pdfPath/' + pdfName;
+      window.open(url, '_blank');
    }
 
 }

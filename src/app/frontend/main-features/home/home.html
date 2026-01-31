@@ -210,6 +210,34 @@
 </div>
 <!-- About End -->
 
+<!-- Pdf Start -->
+<div class="container-xxl py-5">
+   <div class="container">
+      <div class="section-title text-center">
+         <h1 class="display-5 mb-5">Products PDF</h1>
+      </div>
+      <div class="row g-4 justify-content-center">
+         <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.1s" *ngFor="let item of pdf_all_Data">
+            <div class="service-item h-100 border border-5 border-light d-flex flex-column pointer-hend text-center"
+               (click)="openPdf(item.pdf)">
+               <div class="overflow-hidden service-img">
+                  <img class="img-fluid" [src]="api_s.imageBaseUrl + 'pdf_image/' + item.image" [alt]="item.pdf">
+               </div>
+               <div class="p-4 d-flex flex-column flex-grow-1">
+                  <h4 class="mb-3">{{ item.Title }}</h4>
+                  <p>{{ item.pdf }}</p>
+                  <span class="fw-medium text-primary mt-auto">
+                     Open New <i class="fa fa-arrow-right ms-2"></i>
+                  </span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Service End -->
+
 <!-- Service Start -->
 <div class="container-xxl py-5">
    <div class="container">
@@ -731,8 +759,8 @@
       </div>
       <div class="owl-carousel testimonial-carousel" *ngIf="testimonial && testimonial.length">
          <div class="testimonial-item text-center" *ngFor="let item of testimonial">
-            <img class="img-fluid bg-light p-2 mx-auto mb-3" [src]="api_s.imageBaseUrl + 'testimonial/' + item.image" [alt]="item.clientName"
-               style="width: 90px; height: 90px;">
+            <img class="img-fluid bg-light p-2 mx-auto mb-3" [src]="api_s.imageBaseUrl + 'testimonial/' + item.image"
+               [alt]="item.name" style="width: 90px; height: 90px;">
             <div class="testimonial-text text-center p-4">
                <p>{{ item.description }}</p>
                <h5 class="mb-1">{{ item.name }}</h5>
