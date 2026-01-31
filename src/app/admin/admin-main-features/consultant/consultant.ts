@@ -25,7 +25,7 @@ export class Consultant {
   consultant_Form!: FormGroup;
   consultant_ID: any = false;
   all_data: any;
-  image_folder :any;
+  image_folder: any;
   constructor(public api_s: Api,
     private cf: ChangeDetectorRef,
     public globle_s: Globle,
@@ -53,13 +53,13 @@ export class Consultant {
     //   return;
     // }
 
-    
+
     this.pagingConfig.currentPage = page;
 
     this.api_s.postApi(`consonantal-get?page=${page}`, '').then(
       (resp: any) => {
 
-       
+
         this.consultantLogs[page] = resp.data;
         this.all_data = resp.data;
 
@@ -87,6 +87,7 @@ export class Consultant {
 
   opnModal(modalName: string) {
     this.globle_s.modalOpen(modalName);
+    this.consultant_ID = null;
   }
 
   dismissModal(modalName: string) {
@@ -94,6 +95,9 @@ export class Consultant {
     this.consultant_ID = null;
     this.imagePreview = null;
     this.consultant_Form.reset();
+    const fileInputs = document.querySelectorAll<HTMLInputElement>('input[type="file"]');
+    fileInputs.forEach(input => input.value = '');
+
   }
 
 
@@ -112,7 +116,7 @@ export class Consultant {
         this.cf.detectChanges(); // base64 string
       };
       reader.readAsDataURL(file);
-        
+
     }
   }
 
@@ -151,7 +155,7 @@ export class Consultant {
       'warning'
     ).then((result: any) => {
 
-         if (!result) {
+      if (!result) {
         return;
       }
       this.is_loader = true;
@@ -165,10 +169,10 @@ export class Consultant {
             );
             // this.cf.detectChanges();
 
-            
-              this.is_loader = false;
-              this.cf.detectChanges();
-            
+
+            this.is_loader = false;
+            this.cf.detectChanges();
+
             // this.get_data(this.pagingConfig.currentPage);
 
           } else {
@@ -243,7 +247,9 @@ export class Consultant {
 
     // API call here
 
-
+    const fileInputs = document.querySelectorAll<HTMLInputElement>('input[type="file"]');
+    fileInputs.forEach(input => input.value = '');
+    this.consultant_Form.reset();
 
     // 
   }

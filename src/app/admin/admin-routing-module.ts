@@ -9,6 +9,8 @@ import { Consultant } from './admin-main-features/consultant/consultant';
 import { Categorie } from './admin-main-features/categorie/categorie';
 import { Product } from './admin-main-features/product/product';
 import { ChangePassd } from './admin-main-features/change-passd/change-passd';
+import { LamPdf } from './admin-main-features/lam-pdf/lam-pdf';
+import { Testimonial } from './admin-main-features/testimonial/testimonial';
 
 const routes: Routes = [
    {
@@ -21,7 +23,9 @@ const routes: Routes = [
          { path: 'consultant', component: Consultant },
          { path: 'categorie', component: Categorie },
          { path: 'product', component: Product },
-        { path: 'change-password', component: ChangePassd },
+         { path: 'pdf-list', component: LamPdf },
+         { path: 'testimonial', component: Testimonial },
+         { path: 'change-password', component: ChangePassd },
 
          { path: '', redirectTo: '/lamcartAdmin/features/dashboard', pathMatch: 'full' }
       ]

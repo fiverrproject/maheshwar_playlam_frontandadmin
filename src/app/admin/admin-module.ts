@@ -18,6 +18,8 @@ import { share } from 'rxjs';
 import { ShereModule } from '../core/shere/shere-module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ChangePassd } from './admin-main-features/change-passd/change-passd';
+import { LamPdf } from './admin-main-features/lam-pdf/lam-pdf';
+import { Testimonial } from './admin-main-features/testimonial/testimonial';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { ChangePassd } from './admin-main-features/change-passd/change-passd';
       Consultant,
       Categorie,
       Product,
-      ChangePassd
+      ChangePassd,
+      LamPdf,
+      Testimonial
    ],
    imports: [
       CommonModule,
