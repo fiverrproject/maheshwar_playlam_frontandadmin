@@ -1,0 +1,184 @@
+<div class="container-fluid py-4">
+
+    <!-- Page Header (same as Categories) -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1 text-dark">Testimonial</h4>
+        </div>
+
+        <button class="btn btn-dark" (click)="team_ModelOpen('Add', '')">
+            <i class="bi bi-plus-lg me-1"></i> Add Testimonial
+        </button>
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <div class="text-center py-5" *ngIf="isPageLoading ">
+                <div class="spinner-border text-dark" role="status"></div>
+            </div>
+            <!-- Table -->
+            <div class="table-responsive" *ngIf="!isPageLoading">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Role</th>
+                            <th>Description</th>
+                            <th>Created At</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let item of testi_List | paginate: pagingConfig; index as i">
+                            <td>{{ ((pagingConfig.currentPage - 1) * pagingConfig.itemsPerPage) + i + 1 }}</td>
+
+
+                            <td>{{item.name}}</td>
+                            <td>
+                                <img [src]="api_s.imageBaseUrl + 'testimonial/' + item.image" width="80" height="80"
+                                    class="border rounded" alt="product" />
+                            </td>
+
+                            <td>{{item.role}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{ item.created_at ? (item.created_at | date:'dd MMM yyyy') : '-' }}</td>
+
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-dark me-2" (click)="team_ModelOpen('edit',item)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class=" ms-2 btn btn-sm btn-outline-danger" (click)="delete(item)" >
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!isPageLoading && testi_List.length === 0">
+                            <td colspan="7" class="text-center text-muted py-3">
+                                No records found.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mt-3" *ngIf="!isPageLoading && testi_List.length">
+                <div class="col-lg-12 text-end">
+                    <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="modal fade" id="teamodelOpen" data-bs-backdrop="static" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content shadow-lg rounded-4">
+
+      <!-- HEADER -->
+      <div class="modal-header bg-dark text-white rounded-top-4">
+        <h5 class="modal-title text-light fw-semibold">
+          {{ testiForm.value.id ? 'Edit Testimonial' : 'Add Testimonial' }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="team_close()"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body p-4">
+        <form [formGroup]="testiForm" (ngSubmit)="submit()">
+
+          <!-- NAME -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              placeholder="Enter name"
+            />
+            <small class="text-danger" *ngIf="submitted && testiForm.get('name')?.invalid">
+              Name is required
+            </small>
+          </div>
+
+          <!-- ROLE -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Role</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="role"
+              placeholder="Enter role"
+            />
+            <small class="text-danger" *ngIf="submitted && testiForm.get('role')?.invalid">
+              Role is required
+            </small>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea
+              class="form-control"
+              rows="3"
+              formControlName="description"
+              placeholder="Enter Description"
+            ></textarea>
+            <small class="text-danger"  *ngIf="submitted && testiForm.get('description')?.invalid">
+              Description is required
+            </small>
+          </div>
+
+          <!-- IMAGE UPLOAD -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Image</label>
+
+            <div class="border rounded-3 p-3 text-center bg-light">
+              <img
+                *ngIf="imagePreview"
+                [src]="imagePreview"
+                class="img-fluid rounded mb-3"
+                style="max-height: 200px"
+              />
+
+              <img
+                *ngIf="!imagePreview"
+                src="img/admin-img/no-image.jpg"
+                class="img-fluid opacity-50 mb-3"
+                style="max-height: 200px"
+              />
+
+              <input
+                type="file"
+                class="form-control"
+                (change)="onImageSelect($event)"
+              />
+            </div>
+
+            <small class="text-danger"  *ngIf="submitted && testiForm.get('image')?.invalid">
+              Image is required
+            </small>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="d-flex justify-content-center gap-3">
+            <button type="submit" class="btn btn-dark px-5" [disabled]="testiForm.invalid">
+              submit
+            </button>
+
+           
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

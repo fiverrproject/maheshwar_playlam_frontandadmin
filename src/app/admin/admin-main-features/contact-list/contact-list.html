@@ -68,6 +68,7 @@
               <th>S.No</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Mobile</th>
               <th>Subject</th>
               <th>Message</th>
               <th>Created At</th>
@@ -80,6 +81,7 @@
 
               <td>{{ item.name ? (item.name | uppercase) : '-' }}</td>
               <td>{{ item.email ? (item.email | uppercase) : '-' }}</td>
+               <td>{{ item.mobile ? (item.mobile | uppercase) : '-' }}</td>
               <td>{{ item.subject ? (item.subject | uppercase) : '-' }}</td>
               <td>{{ item.message ? (item.message | uppercase) : '-' }}</td>
               <td>{{ item.created_at ? (item.created_at | date: 'd MMM yyyy') : '-' }}</td>
