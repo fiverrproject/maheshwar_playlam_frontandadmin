@@ -33,4 +33,11 @@ export class Header {
          //  this.isLoading = false;
       });
    }
+   openVisulizer() {
+
+      window.open(
+         'https://visualizer.lamcart.com/app/sXklfsGvhp81LaB_JIHOYQ/room-select',
+         '_blank'
+      );
+   }
 }

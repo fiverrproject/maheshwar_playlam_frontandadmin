@@ -1,6 +1,8 @@
 import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FrontCommon } from '../../front-core/services/front-common';
 import { Api } from '../../../core/services/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Globle } from '../../../core/services/globle';
 declare var $: any;
 
 @Component({
@@ -19,13 +21,21 @@ export class Home implements AfterViewInit {
    skip: number = 0;
    categories_all: any;
    activeFilter: string = 'all';
+   inquiryForm!: FormGroup;
+   inquiry_data: any;
+   submitted = false;
+   testimonial: any[] = [];
+
 
    constructor(
       public frontCommon: FrontCommon,
       public api_s: Api,
       private cf: ChangeDetectorRef,
+      private fb: FormBuilder,
+      public globle_s: Globle
    ) {
       this.get_data();
+      this.get_testimonial();
    }
 
    ngOnInit() {
@@ -34,6 +44,13 @@ export class Home implements AfterViewInit {
          'Lamcart is a trusted laminate showcase brand based in Gujarat, India, offering a wide range of **premium decorative laminates, interior laminates, and custom laminate designs**. We specialize in innovative **surface finishes, durable materials, and stylish solutions** for residential, commercial, and furniture applications. With a focus on quality, aesthetics, and functionality, Lamcart helps architects, interior designers, and homeowners bring modern spaces to life.',
          'home'
       )
+      this.inquiryForm = this.fb.group({
+         name: ['', Validators.required],
+         email: [''],
+         mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+         subject: ['',],
+         message: ['',]
+      });
    }
 
    ngAfterViewInit() {
@@ -74,7 +91,36 @@ export class Home implements AfterViewInit {
 
       }, 200);
    }
+   initTestimonialCarousel() {
+      const $el = $('.testimonial-carousel');
+      const itemCount = $el.find('.testimonial-item').length;
 
+      if ($el.hasClass('owl-loaded')) {
+         $el.trigger('destroy.owl.carousel');
+         $el.removeClass('owl-loaded owl-hidden');
+         $el.find('.owl-stage-outer').children().unwrap();
+      }
+
+      setTimeout(() => {
+         $el.owlCarousel({
+            autoplay: true,
+            smartSpeed: 1000,
+            center: true,
+            dots: false,
+            // yahan condition: sirf tab loop jab 2+ items hon
+            loop: itemCount > 1,
+            nav: true,
+            navText: [
+               '<i class="bi bi-arrow-left"></i>',
+               '<i class="bi bi-arrow-right"></i>'
+            ],
+            responsive: {
+               0: { items: 1 },
+               768: { items: 2 }
+            }
+         });
+      }, 0);
+   }
    // Active category ID
    noProductsMessage: string = '';
    setFilter(categoryId: number | 'all'): void {
@@ -102,14 +148,14 @@ export class Home implements AfterViewInit {
             this.all_data.push(...resp.data);
             this.categories = this.getCategories(this.all_data);
             this.total = resp.total;
-         
+
             if (this.all_data.length === 0) {
                this.noProductsMessage = 'No products found for this category.';
             }
          }
 
          this.cf.detectChanges();
-      }, (err: any) => {});
+      }, (err: any) => { });
    }
 
    total: any;
@@ -152,7 +198,33 @@ export class Home implements AfterViewInit {
       return Object.keys(map).map(id => ({ id: +id, name: map[id] }));
    }
 
+   onSubmit() {
+      this.submitted = true;
 
+      if (this.inquiryForm.valid) {
+         this.api_s.postApi('inquiry-add', this.inquiryForm.value).then((resp: any) => {
+            this.inquiry_data = resp.data;
+            this.submitted = false;
+            this.inquiryForm.reset();
+            this.globle_s.showToastr('Success', resp?.message);
 
+         }, (err: any) => {
+            this.globle_s.showToastr('Error', 'Not Found data');
+            //  this.isLoading = false;
+         });
+      }
+
+   }
+   get_testimonial() {
+      this.api_s.postApi('testimonial-get', '').then((resp: any) => {
+         if (resp.status) {
+            this.testimonial = resp.data;   // ya mapping with base URL
+            this.cf.detectChanges();        // DOM update karwao
+            this.initTestimonialCarousel(); // phir Owl init
+         }
+      }, (err: any) => {
+         console.log(err);
+      });
+   }
 
 }

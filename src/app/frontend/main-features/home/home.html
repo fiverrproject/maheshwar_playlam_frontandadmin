@@ -36,8 +36,10 @@
                         Upgrade your interiors with world-class laminate solutions. Discover a wide range of stylish,
                         durable, and premium laminates crafted to elevate homes, offices, and commercial spaces.
                      </p>
-                     <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" [routerLink]="['/about']" routerLinkActive="active">Read More</a>
-                     <a class="btn btn-light py-md-3 px-md-5 animated slideInRight" [routerLink]="['/contact']" routerLinkActive="active">Free Quote</a>
+                     <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" [routerLink]="['/about']"
+                        routerLinkActive="active">Read More</a>
+                     <a class="btn btn-light py-md-3 px-md-5 animated slideInRight" [routerLink]="['/contact']"
+                        routerLinkActive="active">Free Quote</a>
                   </div>
                </div>
             </div>
@@ -62,8 +64,10 @@
                         From classic wood textures to contemporary high-gloss finishes, our laminates are designed
                         to deliver unmatched beauty, superior strength, and long-lasting performance.
                      </p>
-                     <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" [routerLink]="['/about']" routerLinkActive="active">Read More</a>
-                     <a class="btn btn-light py-md-3 px-md-5 animated slideInRight" [routerLink]="['/contact']" routerLinkActive="active">Free Quote</a>
+                     <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" [routerLink]="['/about']"
+                        routerLinkActive="active">Read More</a>
+                     <a class="btn btn-light py-md-3 px-md-5 animated slideInRight" [routerLink]="['/contact']"
+                        routerLinkActive="active">Free Quote</a>
                   </div>
                </div>
             </div>
@@ -86,8 +90,10 @@
                      <p class="fs-5 fw-medium text-white mb-4 pb-2">
                         Engineered with precision and tested for quality, Lamcart laminates offer resistance to
                         scratches, heat, and daily wear — making them the perfect choice for lasting interiors.</p>
-                     <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" [routerLink]="['/about']" routerLinkActive="active">Read More</a>
-                     <a class="btn btn-light py-md-3 px-md-5 animated slideInRight" [routerLink]="['/contact']" routerLinkActive="active">Free Quote</a>
+                     <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft" [routerLink]="['/about']"
+                        routerLinkActive="active">Read More</a>
+                     <a class="btn btn-light py-md-3 px-md-5 animated slideInRight" [routerLink]="['/contact']"
+                        routerLinkActive="active">Free Quote</a>
                   </div>
                </div>
             </div>
@@ -160,7 +166,7 @@
          <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
             <div class="p-lg-5 pe-lg-0">
                <div class="section-title text-start">
-                     <h1 class="display-5 mb-4" >About Us</h1>
+                  <h1 class="display-5 mb-4">About Us</h1>
                </div>
                <p class="mb-4 pb-2">
                   We are leading manufacturers and suppliers of premium laminate sheets in Gujarat. With over 15 years
@@ -196,7 +202,7 @@
                      </div>
                   </div>
                </div>
-               <a class="btn btn-primary py-3 px-5"  [routerLink]="['/about']" routerLinkActive="active">Explore More</a>
+               <a class="btn btn-primary py-3 px-5" [routerLink]="['/about']" routerLinkActive="active">Explore More</a>
             </div>
          </div>
       </div>
@@ -553,34 +559,53 @@
                   Looking for the perfect laminate for your space? Share your requirements and our team will
                   get back to you with the best options and pricing.
                </p>
-               <form>
+               <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()">
                   <div class="row g-3">
-                     <div class="col-12 col-sm-6">
-                        <input type="text" id="yourName" name="yourName" class="form-control border-0"
-                           placeholder="Your Name" style="height: 55px;">
+                     <div class="col-md-6">
+                        <div class="form-floating">
+                           <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
+                              formControlName="name" autocomplete="name">
+                           <label for="name">Your Name</label>
+                        </div>
+                        <div class="text-danger mt-1" *ngIf="submitted && inquiryForm.controls['name'].invalid">
+                           Name is required
+                        </div>
                      </div>
-                     <div class="col-12 col-sm-6">
-                        <input type="email" id="yourEmail" name="yourEmail" class="form-control border-0"
-                           placeholder="Your Email" style="height: 55px;">
+                     <div class="col-md-6">
+                        <div class="form-floating">
+                           <input type="text" class="form-control" id="mobile" name="mobile"
+                              placeholder="Your Mobile No." formControlName="mobile" maxlength="10" pattern="[0-9]*"
+                              inputmode="numeric" autocomplete="tel">
+                           <label for="mobile">Your Mobile No.</label>
+                        </div>
+                        <div class="text-danger mt-1" *ngIf="submitted && inquiryForm.controls['mobile'].invalid">
+                           Mobile number must be 10 digits
+                        </div>
                      </div>
-                     <div class="col-12 col-sm-6">
-                        <input type="text" id="yourMobile" name="yourMobile" class="form-control border-0"
-                           placeholder="Your Mobile" style="height: 55px;">
-                     </div>
-                     <div class="col-12 col-sm-6">
-                        <select id="yourService" name="yourService" class="form-select border-0" style="height: 55px;">
-                           <option selected>Select A Service</option>
-                           <option value="1">Service 1</option>
-                           <option value="2">Service 2</option>
-                           <option value="3">Service 3</option>
-                        </select>
+                     <div class="col-md-12">
+                        <div class="form-floating">
+                           <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
+                              formControlName="email" autocomplete="email">
+                           <label for="email">Your Email</label>
+                        </div>
                      </div>
                      <div class="col-12">
-                        <textarea id="specialNote" name="specialNote" class="form-control border-0"
-                           placeholder="Special Note"></textarea>
+                        <div class="form-floating">
+                           <input formControlName="subject" type="text" class="form-control" id="subject" name="subject"
+                              placeholder="Subject">
+                           <label for="subject">Subject</label>
+                        </div>
                      </div>
                      <div class="col-12">
-                        <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                        <div class="form-floating">
+                           <textarea class="form-control" formControlName="message" placeholder="Leave a message here"
+                              id="message" name="message" style="height: 100px">
+                           </textarea>
+                           <label for="message">Message</label>
+                        </div>
+                     </div>
+                     <div class="col-12">
+                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
                      </div>
                   </div>
                </form>
@@ -602,25 +627,29 @@
       <div class="row g-4">
 
          <ng-container *ngFor="let item of consonantal_data">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-               <div class="team-item">
-                  <div class="overflow-hidden position-relative">
-                     <img class="img-fluid" *ngIf="item.profile; else noImage"
-                        [src]="api_s.imageBaseUrl + 'profile/' + item.profile" alt="{{ item.name }}" alt="team-1.jpg">
+            <div class="col-lg-3 col-md-6 mb-4  wow fadeInUp" data-wow-delay="0.1s">
+               <div class="team-item h-100 d-flex flex-column">
+
+                  <div class="team-img-wrapper position-relative">
+                     <img *ngIf="item.profile; else noImage" [src]="api_s.imageBaseUrl + 'profile/' + item.profile"
+                        class="img-fluid team-img" alt="{{ item.name }}" />
 
                      <ng-template #noImage>
-                        <img src="/img/admin-img/not-found.png" alt="Profile" class="img-fluid">
+                        <img src="/img/admin-img/not-found.png" class="img-fluid team-img" alt="Profile" />
                      </ng-template>
+
                      <div class="team-social">
                         <a class="btn btn-square"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-square"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-square"><i class="fab fa-instagram"></i></a>
                      </div>
                   </div>
-                  <div class="text-center border border-5 border-light border-top-0 p-4">
-                     <h5 class="mb-0">{{item.name}}</h5>
-                     <small>{{item.designation}}</small>
+
+                  <div class="text-center border border-5 border-light border-top-0 p-4 mt-auto">
+                     <h5 class="mb-0">{{ item.name }}</h5>
+                     <small>{{ item.designation }}</small>
                   </div>
+
                </div>
             </div>
          </ng-container>
@@ -700,16 +729,14 @@
       <div class="section-title text-center">
          <h1 class="display-5 mb-5">Testimonial</h1>
       </div>
-      <div class="owl-carousel testimonial-carousel">
-         <div class="testimonial-item text-center" *ngFor="let item of frontCommon.testimonial">
-            <img class="img-fluid bg-light p-2 mx-auto mb-3" [src]="item.image" [alt]="item.clientName"
+      <div class="owl-carousel testimonial-carousel" *ngIf="testimonial && testimonial.length">
+         <div class="testimonial-item text-center" *ngFor="let item of testimonial">
+            <img class="img-fluid bg-light p-2 mx-auto mb-3" [src]="api_s.imageBaseUrl + 'testimonial/' + item.image" [alt]="item.clientName"
                style="width: 90px; height: 90px;">
             <div class="testimonial-text text-center p-4">
-               <p>
-                  {{item.description}}
-               </p>
-               <h5 class="mb-1">{{item.clientName}}</h5>
-               <span class="fst-italic">{{item.profession}}</span>
+               <p>{{ item.description }}</p>
+               <h5 class="mb-1">{{ item.name }}</h5>
+               <span class="fst-italic">{{ item.role }}</span>
             </div>
          </div>
       </div>

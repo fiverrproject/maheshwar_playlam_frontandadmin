@@ -7,12 +7,12 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class Api {
 
-  apiURL = "https://lamcart.com/api/";
-  imageBaseUrl = "https://lamcart.com/image/";
+  // apiURL = "https://lamcart.com/api/";
+  // imageBaseUrl = "https://lamcart.com/image/";
 
 
-  // apiURL = 'http://192.168.1.37:8001/api/';
-  // imageBaseUrl = "http://192.168.1.37:8001/image/";
+  apiURL = 'http://192.168.1.37:8001/api/';
+  imageBaseUrl = "http://192.168.1.37:8001/image/";
 
   constructor(
     public http: HttpClient,

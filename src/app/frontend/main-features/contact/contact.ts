@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Api } from '../../../core/services/api';
 import { Globle } from '../../../core/services/globle';
@@ -14,19 +14,23 @@ export class Contact {
   inquiryForm!: FormGroup;
   inquiry_data: any;
   submitted = false;
+  all_data: any
   constructor(
     public api_s: Api,
     private fb: FormBuilder,
-    public globle_s: Globle) {
+    public globle_s: Globle,
+    private cf: ChangeDetectorRef
+  ) {
 
-
+    this.get_data();
   }
 
   ngOnInit() {
     // Initialize the form with validation rules
     this.inquiryForm = this.fb.group({
-      name: ['',],
+      name: ['', Validators.required],
       email: [''],
+      mobile: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       subject: ['',],
       message: ['',]
     });
@@ -58,6 +62,15 @@ export class Contact {
       });
     }
 
+  }
+
+  get_data() {
+    this.api_s.postApi('site-config-get', '').then((resp: any) => {
+      this.all_data = resp.data[0];
+      this.cf.detectChanges();
+    }, (err: any) => {
+      //  this.isLoading = false;
+    });
   }
 
 }

@@ -122,27 +122,30 @@
          <h1 class="display-5 mb-5">Team Members</h1>
       </div>
       <div class="row g-4">
-
          <ng-container *ngFor="let item of all_data">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-               <div class="team-item">
-                  <div class="overflow-hidden position-relative">
-                     <img class="img-fluid" *ngIf="item.profile; else noImage"
-                        [src]="api_s.imageBaseUrl + 'profile/' + item.profile" alt="{{ item.name }}" alt="team-1.jpg">
+            <div class="col-lg-3 col-md-6 mb-4  wow fadeInUp" data-wow-delay="0.1s">
+               <div class="team-item h-100 d-flex flex-column">
+
+                  <div class="team-img-wrapper position-relative">
+                     <img *ngIf="item.profile; else noImage" [src]="api_s.imageBaseUrl + 'profile/' + item.profile"
+                        class="img-fluid team-img" alt="{{ item.name }}" />
 
                      <ng-template #noImage>
-                        <img src="/img/admin-img/not-found.png" alt="Profile" class="img-fluid">
+                        <img src="/img/admin-img/not-found.png" class="img-fluid team-img" alt="Profile" />
                      </ng-template>
+
                      <div class="team-social">
                         <a class="btn btn-square"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-square"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-square"><i class="fab fa-instagram"></i></a>
                      </div>
                   </div>
-                  <div class="text-center border border-5 border-light border-top-0 p-4">
-                     <h5 class="mb-0">{{item.name}}</h5>
-                     <small>{{item.designation}}</small>
+
+                  <div class="text-center border border-5 border-light border-top-0 p-4 mt-auto">
+                     <h5 class="mb-0">{{ item.name }}</h5>
+                     <small>{{ item.designation }}</small>
                   </div>
+
                </div>
             </div>
          </ng-container>

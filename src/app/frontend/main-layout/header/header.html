@@ -17,10 +17,14 @@
             <small>+{{all_data?.mobile_1}}</small>
          </div>
          <div class="h-100 d-inline-flex align-items-center">
-            <a [href]="all_data?.social_1" class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-facebook-f"></i></a>
-            <a [href]="all_data?.social_2" class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-twitter"></i></a>
-            <a [href]="all_data?.social_3" class="btn btn-sm-square bg-white text-primary me-1"><i class="fab fa-linkedin-in"></i></a>
-            <a [href]="all_data?.social_4" class="btn btn-sm-square bg-white text-primary me-0"><i class="fab fa-instagram"></i></a>
+            <a [href]="all_data?.social_1" class="btn btn-sm-square bg-white text-primary me-1"><i
+                  class="fab fa-facebook-f"></i></a>
+            <a [href]="all_data?.social_2" class="btn btn-sm-square bg-white text-primary me-1"><i
+                  class="fab fa-twitter"></i></a>
+            <a [href]="all_data?.social_3" class="btn btn-sm-square bg-white text-primary me-1"><i
+                  class="fab fa-linkedin-in"></i></a>
+            <a [href]="all_data?.social_4" class="btn btn-sm-square bg-white text-primary me-0"><i
+                  class="fab fa-instagram"></i></a>
          </div>
       </div>
    </div>
@@ -61,3 +65,9 @@
    </div>
 </nav>
 <!-- Navbar End -->
+
+<div class="body-fixed-btn">
+   <button class="btn btn-primary btn-lg side-btn" (click)="openVisulizer()">
+      Try Visualizer
+   </button>
+</div>

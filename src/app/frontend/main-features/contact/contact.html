@@ -13,10 +13,11 @@
 <!-- Page Header End -->
 
 <!-- Contact Start -->
+
 <div class="container-fluid bg-light overflow-hidden px-lg-0" style="margin: 6rem 0;">
-   <div class="container contact px-lg-0">
+   <div class="container px-lg-0">
       <div class="row g-0 mx-lg-0">
-         <div class="col-lg-6 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
+         <div class="col-lg-8 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
             <div class="p-lg-5 ps-lg-0">
                <div class="section-title text-start">
                   <h2 class="display-5 mb-4 h2">Contact Us</h2>
@@ -25,32 +26,47 @@
                   Have a question or need help choosing the right laminate? Fill out the form below and our
                   team will get back to you shortly.
                </p>
-               <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()" >
+               <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()">
                   <div class="row g-3">
                      <div class="col-md-6">
                         <div class="form-floating">
                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name"
-                             formControlName="name" autocomplete="name"  >
+                              formControlName="name" autocomplete="name">
                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="text-danger mt-1" *ngIf="submitted && inquiryForm.controls['name'].invalid">
+                           Name is required
                         </div>
                      </div>
                      <div class="col-md-6">
                         <div class="form-floating">
-                           <input type="email" class="form-control" id="email"   name="email" placeholder="Your Email"
-                             formControlName="email" autocomplete="email">
+                           <input type="text" class="form-control" id="mobile" name="mobile"
+                              placeholder="Your Mobile No." formControlName="mobile" maxlength="10" pattern="[0-9]*"
+                              inputmode="numeric" autocomplete="tel">
+                           <label for="mobile">Your Mobile No.</label>
+                        </div>
+                        <div class="text-danger mt-1" *ngIf="submitted && inquiryForm.controls['mobile'].invalid">
+                           Mobile number must be 10 digits
+                        </div>
+                     </div>
+                     <div class="col-md-12">
+                        <div class="form-floating">
+                           <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
+                              formControlName="email" autocomplete="email">
                            <label for="email">Your Email</label>
                         </div>
                      </div>
                      <div class="col-12">
                         <div class="form-floating">
-                           <input formControlName="subject" type="text" class="form-control" id="subject" name="subject"  placeholder="Subject">
+                           <input formControlName="subject" type="text" class="form-control" id="subject" name="subject"
+                              placeholder="Subject">
                            <label for="subject">Subject</label>
                         </div>
                      </div>
                      <div class="col-12">
                         <div class="form-floating">
-                           <textarea class="form-control" formControlName="message" placeholder="Leave a message here"   id="message" name="message"
-                              style="height: 100px">
+                           <textarea class="form-control" formControlName="message" placeholder="Leave a message here"
+                              id="message" name="message" style="height: 100px">
                            </textarea>
                            <label for="message">Message</label>
                         </div>
@@ -62,11 +78,29 @@
                </form>
             </div>
          </div>
-         <div class="col-lg-6 pe-lg-0" style="min-height: 400px;">
-            <div class="position-relative h-100">
-               <iframe class="position-absolute w-100 h-100" style="object-fit: cover;"
+         <div class="col-lg-4 pe-lg-0 wow fadeIn" style="min-height: 400px;" data-wow-delay="0.5s">
+            <div class="position-relative h-100 pt-5 mt-5">
+
+               <h4 class="mb-4 display-5 pt-4">Address</h4>
+               <p class="mb-2">
+                  <i class="fa fa-building me-3"></i>Maheshwar Ply Lam
+               </p>
+               <p class="mb-2">
+                  <i class="fa fa-map-marker-alt me-3"></i>{{all_data?.address}}
+               </p>
+               <p class="mb-2">
+                  <i class="fa fa-phone-alt me-3"></i>+{{all_data?.mobile_1}}
+               </p>
+               <p class="mb-2">
+                  <i class="fa fa-envelope me-3"></i>{{all_data?.email}}
+               </p>
+               <!-- <iframe class="position-absolute w-100 h-100" style="object-fit: cover;"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                  frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                  frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+               <iframe class="position-absolute w-100 h-50" style="object-fit: cover;"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192725.3551493723!2d70.58657789216274!3d22.268619174354814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959c98ac71cdf0f%3A0x76dd15cfbe93ad3b!2sRajkot%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1769751098474!5m2!1sen!2sin"
+                  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
          </div>
       </div>
